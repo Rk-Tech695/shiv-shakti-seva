@@ -1,0 +1,200 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int        @id @default(autoincrement())
+  name                 String
+  mobile_number        String     @unique
+  whatsapp_number      String?
+  dob                  DateTime?
+  total_donated_amount Float      @default(0)
+  role                 Role       @default(USER)
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+  donations            Donation[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+}
+
+model Donation {
+
+  id             Int               @id @default(autoincrement())
+
+  userId         Int
+
+  user           User              @relation(fields: [userId], references: [id])
+
+  amount         Float
+
+  paymentMode    PaymentMode
+
+  transactionId  String?
+
+  utrNumber      String?
+
+  proofImage     String?
+
+  receivedBy     String?
+
+  verifiedBy     String?
+
+  verifiedAt     DateTime?
+
+  status         DonationStatus    @default(PENDING)
+
+  invoiceUrl     String?
+
+  createdAt      DateTime          @default(now())
+
+}
+
+enum PaymentMode {
+  RAZORPAY
+  UPI
+  BANK_TRANSFER
+  CASH
+}
+
+enum DonationStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum BookingStatus {
+
+  PENDING
+
+  CONFIRMED
+
+  CANCELLED
+
+}
+
+model Expense {
+
+  id           Int           @id @default(autoincrement())
+
+  amount       Float
+
+  purpose      String
+
+  sourceType   ExpenseMode
+
+  handledBy    String
+
+  description  String?
+
+  createdAt    DateTime      @default(now())
+
+}
+
+enum ExpenseMode {
+  CASH
+  BANK
+}
+
+model Event {
+
+  id             Int            @id @default(autoincrement())
+
+  title          String
+
+  description    String?
+
+  eventDate      DateTime
+
+  location       String?
+
+  bannerImage String?
+
+  totalSlots     Int            @default(100)
+
+  bookedSlots    Int            @default(0)
+
+  slotEnabled    Boolean        @default(true)
+
+  createdAt      DateTime       @default(now())
+
+  bookingGroups  BookingGroup[]
+
+}
+
+
+
+model Trustee {
+  id          Int      @id @default(autoincrement())
+  name        String
+  mobile      String
+  designation String
+  createdAt   DateTime @default(now())
+}
+
+model BookingGroup {
+
+  id              Int             @id @default(autoincrement())
+
+  pnr             String          @unique
+
+  mobileNumber    String
+
+  totalPersons    Int
+
+  totalAmount     Float?          @default(0)
+
+  bookingStatus   BookingStatus   @default(CONFIRMED)
+
+  ticketUrl       String?
+
+  checkedIn       Boolean         @default(false)
+
+  eventId         Int
+
+  event           Event           @relation(fields: [eventId], references: [id])
+
+  createdAt       DateTime        @default(now())
+
+  devotees        Devotee[]
+
+}
+
+model Devotee {
+
+  id               Int            @id @default(autoincrement())
+
+  name             String
+
+  age              Int?
+
+  gender           String?
+
+  mobileNumber     String?
+
+  bookingGroupId   Int
+
+  bookingGroup     BookingGroup   @relation(fields: [bookingGroupId], references: [id])
+
+}
+
+model AppSetting {
+
+  id                     Int    @id @default(1)
+
+  maxDevoteesPerBooking  Int    @default(5)
+
+}
