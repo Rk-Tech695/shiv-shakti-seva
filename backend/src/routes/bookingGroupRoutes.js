@@ -16,6 +16,7 @@ router.post('/', createBookingGroup);
 
 router.get('/', getAllBookings);
 
+
 router.get('/pnr/:pnr', searchBookingByPNR);
 
 export default router;

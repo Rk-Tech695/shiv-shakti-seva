@@ -16,7 +16,9 @@ const Donate = () => {
 
       dob: '',
 
-      utrNumber: ''
+      utrNumber: '',
+
+      paymentHolderName: ''
 
     });
   const [donationSuccess, setDonationSuccess] =
@@ -70,6 +72,11 @@ const Donate = () => {
           'utrNumber',
           formData.utrNumber
         );
+
+        data.append(
+        'paymentHolderName',
+        formData.paymentHolderName
+      );
 
         if (proofImage) {
 
@@ -144,7 +151,9 @@ const Donate = () => {
 
           dob: '',
 
-          utrNumber: ''
+          utrNumber: '',
+
+          paymentHolderName: ''
 
         });
 
@@ -336,7 +345,44 @@ const Donate = () => {
             />
           </div>
           {formData.mode !== 'CASH' && (  
+
+            
           <div>
+            <div>
+
+  <label className="block text-sm font-bold mb-2">
+
+    Payment Holder Name
+
+  </label>
+
+  <input
+
+    type="text"
+
+    required={formData.mode !== 'CASH'}
+
+    className="w-full border rounded-lg p-3"
+
+    placeholder="UPI / Bank Account Holder Name"
+
+    value={formData.paymentHolderName}
+
+    onChange={(e) =>
+
+      setFormData({
+
+        ...formData,
+
+        paymentHolderName: e.target.value
+
+      })
+
+    }
+
+  />
+
+</div>
 
             <label className="block text-sm font-bold mb-2">
 

@@ -137,7 +137,9 @@ export const createDonation =
 
         dob,
 
-        utrNumber,
+        transactionId,
+
+        paymentHolderName,
 
         receivedBy
 
@@ -207,45 +209,88 @@ export const createDonation =
       // 😄 DONATION CREATE
 
       const donation =
-        await prisma.donation.create({
+  await prisma.donation.create({
 
-          data: {
+    data: {
 
-            userId: user.id,
+      userId: user.id,
 
-            amount:
-              parseFloat(amount),
+      amount:
+        parseFloat(amount),
 
-            paymentMode: mode,
+      paymentMode: mode,
 
-            utrNumber,
+      transactionId,
 
-            proofImage,
+      paymentHolderName,
 
-            status: 'PENDING',
+      utrNumber:
+        transactionId || null,
 
-            receivedBy:
-              mode === 'CASH'
-                ? receivedBy
-                : null
+      proofImage,
 
-          },
+      status:
+        receivedBy
+          ? 'SUCCESS'
+          : 'PENDING',
 
-          include: {
+      receivedBy:
+        receivedBy || null,
 
-            user: true
+      verifiedBy:
+        receivedBy
+          ? 'ADMIN'
+          : null,
 
-          }
+      verifiedAt:
+        receivedBy
+          ? new Date()
+          : null
 
-        });
+    },
 
-      res.json({
+    include: {
 
-        success: true,
+      user: true
 
-        donation
+    }
 
-      });
+  });
+
+// 😄 AUTO UPDATE USER TOTAL
+
+if (receivedBy) {
+
+  await prisma.user.update({
+
+    where: {
+
+      id: user.id
+
+    },
+
+    data: {
+
+      total_donated_amount: {
+
+        increment:
+          parseFloat(amount)
+
+      }
+
+    }
+
+  });
+
+}
+
+res.json({
+
+  success: true,
+
+  donation
+
+});
 
     } catch (error) {
 
@@ -260,6 +305,7 @@ export const createDonation =
     }
 
   };
+  
 
 export const approveDonation =
   async (req, res) => {
@@ -324,6 +370,56 @@ export const approveDonation =
         success: true,
 
         donation
+
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+
+        success: false,
+
+        message: error.message
+
+      });
+
+    }
+
+  };
+
+  export const getPendingDonations =
+  async (req, res) => {
+
+    try {
+
+      const donations =
+        await prisma.donation.findMany({
+
+          where: {
+
+            status: 'PENDING'
+
+          },
+
+          include: {
+
+            user: true
+
+          },
+
+          orderBy: {
+
+            createdAt: 'desc'
+
+          }
+
+        });
+
+      res.json({
+
+        success: true,
+
+        donations
 
       });
 

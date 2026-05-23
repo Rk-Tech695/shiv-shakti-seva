@@ -1,75 +1,64 @@
-
 const EventCard = ({
   event
 }) => {
 
   return (
 
-    <div className="bg-white border border-stone-200 p-4 rounded-xl shadow-sm">
+    <div className="bg-white border border-stone-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
 
-      <h4 className="font-bold text-stone-900">
+      {/* EVENT IMAGE */}
+
+      {event.bannerImage && (
+
+        <img
+          src={event.bannerImage}
+          alt={event.title}
+          className="w-full h-52 object-cover rounded-xl mb-4"
+        />
+
+      )}
+
+      {/* TITLE */}
+
+      <h4 className="font-bold text-2xl text-stone-900">
 
         {event.title}
 
       </h4>
 
-      <p className="text-sm text-stone-500">
+      {/* DATE + LOCATION */}
+
+      <p className="text-stone-500 mt-1">
 
         {new Date(
           event.eventDate
         ).toLocaleDateString()}
 
-        {' '}at{' '}
+        {' '}•{' '}
 
         {event.location}
 
       </p>
 
-      <div className="mt-3 space-y-1">
+      {/* DESCRIPTION */}
 
-        <p className="text-purple-600 font-bold text-sm">
+      {event.description && (
 
-          Total Bookings:
-          {' '}
-          {event.bookingGroups?.length || 0}
+        <p className="text-stone-600 mt-4 leading-7">
 
-        </p>
-
-        <p className="text-orange-600 font-semibold text-sm">
-
-          Booked:
-          {' '}
-          {event.bookedSlots}
+          {event.description}
 
         </p>
 
-        <p className="text-green-600 font-semibold text-sm">
+      )}
 
-          Available:
-          {' '}
-          {event.totalSlots - event.bookedSlots}
+      {/* BUTTON */}
 
-        </p>
+      <button className="mt-5 w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-3 rounded-xl font-bold transition-all duration-300 cursor-pointer">
 
-        <p className="text-blue-600 font-semibold text-sm">
+        Join Program
 
-          Total Slots:
-          {' '}
-          {event.totalSlots}
-
-        </p>
-
-        {!event.slotEnabled && (
-
-          <p className="text-red-600 font-bold">
-
-            SLOTS CLOSED
-
-          </p>
-
-        )}
-
-      </div>
+      </button>
 
     </div>
 

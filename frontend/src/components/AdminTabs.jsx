@@ -1,41 +1,53 @@
-
 const AdminTabs = ({
   activeTab,
   setActiveTab
 }) => {
 
+  const tabs = [
+
+    'DANDATA',
+
+    'APPROVALS',
+
+    'EXPENSES',
+
+    'EVENTS',
+
+    'BOOKINGS'
+
+  ];
+
   return (
 
-    <div className="flex border-b border-stone-200">
+    <div className="overflow-x-auto border-b border-stone-200 bg-white">
 
-      {[
-        'DANDATA',
-        'EXPENSES',
-        'EVENTS',
-        'BOOKINGS'
-      ].map(tab => (
+      <div className="flex min-w-max">
 
-        <button
+        {tabs.map(tab => (
 
-          key={tab}
+          <button
 
-          onClick={() =>
-            setActiveTab(tab)
-          }
+            key={tab}
 
-          className={`flex-1 py-4 font-bold text-sm tracking-widest uppercase transition-colors ${
-            activeTab === tab
-              ? 'border-b-4 border-orange-500 text-orange-600'
-              : 'text-stone-500 hover:text-stone-800'
-          }`}
+            onClick={() =>
+              setActiveTab(tab)
+            }
 
-        >
+            className={`px-6 py-4 font-bold text-sm tracking-widest uppercase transition-all whitespace-nowrap border-b-4 ${
+              activeTab === tab
+                ? 'border-orange-500 text-orange-600 bg-orange-50'
+                : 'border-transparent text-stone-500 hover:text-stone-800 hover:bg-stone-50'
+            }`}
 
-          {tab}
+          >
 
-        </button>
+            {tab}
 
-      ))}
+          </button>
+
+        ))}
+
+      </div>
 
     </div>
 

@@ -1,4 +1,5 @@
 import EventCard from './EventCard';
+
 const EventsTab = ({
 
   events,
@@ -15,9 +16,11 @@ const EventsTab = ({
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
+      {/* LEFT */}
+
       <div>
 
-        <h3 className="text-2xl font-bold mb-6">
+        <h3 className="text-3xl font-extrabold mb-6 text-stone-900">
 
           Add New Event
 
@@ -27,7 +30,7 @@ const EventsTab = ({
 
           onSubmit={handleAddEvent}
 
-          className="space-y-4 bg-stone-50 p-6 rounded-2xl border border-stone-100"
+          className="space-y-5 bg-white p-7 rounded-3xl border border-stone-200 shadow-sm"
 
         >
 
@@ -39,7 +42,7 @@ const EventsTab = ({
 
             placeholder="Event Title"
 
-            className="w-full border rounded-lg p-3"
+            className="w-full border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-orange-500"
 
             value={eventForm.title}
 
@@ -58,7 +61,7 @@ const EventsTab = ({
 
             required
 
-            className="w-full border rounded-lg p-3"
+            className="w-full border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-orange-500"
 
             value={eventForm.eventDate}
 
@@ -79,7 +82,7 @@ const EventsTab = ({
 
             placeholder="Location"
 
-            className="w-full border rounded-lg p-3"
+            className="w-full border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-orange-500"
 
             value={eventForm.location}
 
@@ -94,20 +97,18 @@ const EventsTab = ({
 
           <input
 
-            type="number"
+            type="text"
 
-            required
+            placeholder="Banner Image URL"
 
-            placeholder="Total Slots"
+            className="w-full border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-orange-500"
 
-            className="w-full border rounded-lg p-3"
-
-            value={eventForm.totalSlots}
+            value={eventForm.bannerImage}
 
             onChange={e =>
               setEventForm({
                 ...eventForm,
-                totalSlots: e.target.value
+                bannerImage: e.target.value
               })
             }
 
@@ -117,9 +118,9 @@ const EventsTab = ({
 
             placeholder="Description"
 
-            className="w-full border rounded-lg p-3"
+            className="w-full border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-orange-500"
 
-            rows="3"
+            rows="4"
 
             value={eventForm.description}
 
@@ -136,7 +137,7 @@ const EventsTab = ({
 
             type="submit"
 
-            className="w-full bg-orange-600 text-white font-bold py-3 rounded-lg hover:bg-orange-700 cursor-pointer"
+            className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-4 rounded-2xl transition-all duration-300 cursor-pointer"
 
           >
 
@@ -148,24 +149,26 @@ const EventsTab = ({
 
       </div>
 
+      {/* RIGHT */}
+
       <div>
 
-        <h3 className="text-2xl font-bold mb-6">
+        <h3 className="text-3xl font-extrabold mb-6 text-stone-900">
 
-          Active Events
+          Upcoming Programs
 
         </h3>
 
-        <div className="space-y-3">
+        <div className="space-y-5">
 
           {events.map(event => (
 
-  <EventCard
-    key={event.id}
-    event={event}
-  />
+            <EventCard
+              key={event.id}
+              event={event}
+            />
 
-))}
+          ))}
 
         </div>
 

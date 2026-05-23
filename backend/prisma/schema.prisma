@@ -45,6 +45,8 @@ model Donation {
 
   transactionId  String?
 
+  paymentHolderName String?
+
   utrNumber      String?
 
   proofImage     String?
@@ -76,15 +78,6 @@ enum DonationStatus {
   FAILED
 }
 
-enum BookingStatus {
-
-  PENDING
-
-  CONFIRMED
-
-  CANCELLED
-
-}
 
 model Expense {
 
@@ -111,27 +104,19 @@ enum ExpenseMode {
 
 model Event {
 
-  id             Int            @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
 
-  title          String
+  title        String
 
-  description    String?
+  description  String?
 
-  eventDate      DateTime
+  eventDate    DateTime
 
-  location       String?
+  location     String?
 
-  bannerImage String?
+  bannerImage  String?
 
-  totalSlots     Int            @default(100)
-
-  bookedSlots    Int            @default(0)
-
-  slotEnabled    Boolean        @default(true)
-
-  createdAt      DateTime       @default(now())
-
-  bookingGroups  BookingGroup[]
+  createdAt    DateTime  @default(now())
 
 }
 
@@ -145,51 +130,32 @@ model Trustee {
   createdAt   DateTime @default(now())
 }
 
-model BookingGroup {
+model BhavanBooking {
 
-  id              Int             @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
 
-  pnr             String          @unique
+  name           String
 
-  mobileNumber    String
+  mobile         String
 
-  totalPersons    Int
+  totalPersons   Int
 
-  totalAmount     Float?          @default(0)
+  arrivalDate    DateTime
 
-  bookingStatus   BookingStatus   @default(CONFIRMED)
+  departureDate  DateTime
 
-  ticketUrl       String?
+  stayType       String
 
-  checkedIn       Boolean         @default(false)
+  note           String?
 
-  eventId         Int
+  assignedRoom   String?
 
-  event           Event           @relation(fields: [eventId], references: [id])
+  status         String   @default("PENDING")
 
-  createdAt       DateTime        @default(now())
-
-  devotees        Devotee[]
+  createdAt      DateTime @default(now())
 
 }
 
-model Devotee {
-
-  id               Int            @id @default(autoincrement())
-
-  name             String
-
-  age              Int?
-
-  gender           String?
-
-  mobileNumber     String?
-
-  bookingGroupId   Int
-
-  bookingGroup     BookingGroup   @relation(fields: [bookingGroupId], references: [id])
-
-}
 
 model AppSetting {
 
@@ -198,3 +164,4 @@ model AppSetting {
   maxDevoteesPerBooking  Int    @default(5)
 
 }
+

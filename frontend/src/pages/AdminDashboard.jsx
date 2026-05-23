@@ -650,7 +650,7 @@ import {
 
   addExpense,
 
-  addEvent
+  addEvent  
 
 } from '../services/adminService';
 
@@ -667,6 +667,8 @@ import ExpenseTab from '../components/ExpenseTab';
 import EventsTab from '../components/EventsTab';
 
 import BookingsTab from '../components/BookingsTabs';
+
+import ApprovalTab from '../components/ApprovalTab';
 
 
 const AdminDashboard = () => {
@@ -712,6 +714,9 @@ const AdminDashboard = () => {
   const [bookings, setBookings] =
     useState([]);
 
+  const [pendingDonations, setPendingDonations] =
+  useState([]);  
+
   const [pnrSearch, setPnrSearch] =
     useState('');
 
@@ -750,26 +755,45 @@ const AdminDashboard = () => {
     });
 
   const [eventForm, setEventForm] =
-    useState({
-
-      title: '',
-
-      eventDate: '',
-
-      location: '',
-
-      totalSlots: 100,
-
-      description: ''
-
-    });
-
-    const [cashDonationForm, setCashDonationForm] =
   useState({
 
-    name: '',
-    mobile: '',
+    title: '',
+
+    eventDate: '',
+
+    location: '',
+
+    bannerImage: '',
+
+    description: ''
+
+  });
+
+  //   const [cashDonationForm, setCashDonationForm] =
+  // useState({
+
+  //   name: '',
+  //   mobile: '',
+  //   amount: '',
+  //   receivedBy: ''
+
+  // });
+
+  const [cashDonationForm, setCashDonationForm] =
+  useState({
+
+    donorName: '',
+
+    donorMobile: '',
+
     amount: '',
+
+    paymentMode: 'CASH',
+
+    paymentHolderName: '',
+
+    transactionId: '',
+
     receivedBy: ''
 
   });
@@ -784,6 +808,19 @@ const AdminDashboard = () => {
 
     const data =
       await fetchDashboardData();
+
+    const pendingRes =
+  await axios.get(
+
+    `${API_BASE_URL}/api/donations/pending`
+
+  );
+
+setPendingDonations(
+
+  pendingRes.data.donations || []
+
+);  
 
     setDonors(
       data.donors || []
@@ -923,6 +960,50 @@ const AdminDashboard = () => {
     };
 // CASH DoNATION
 
+// const handleCashDonation =
+//   async (e) => {
+
+//     e.preventDefault();
+
+//     try {
+
+//       await axios.post(
+
+//         `${API_BASE_URL}/api/donations`,
+
+//         {
+
+//           ...cashDonationForm,
+
+//           mode: 'CASH'
+
+//         }
+
+//       );
+
+//       alert(
+//         'Cash Donation Added'
+//       );
+
+//       setCashDonationForm({
+
+//         name: '',
+//         mobile: '',
+//         amount: '',
+//         receivedBy: ''
+
+//       });
+
+//       loadDashboard();
+
+//     } catch (error) {
+
+//       console.log(error);
+
+//     }
+
+//   };
+
 const handleCashDonation =
   async (e) => {
 
@@ -936,23 +1017,49 @@ const handleCashDonation =
 
         {
 
-          ...cashDonationForm,
+          name:
+            cashDonationForm.donorName,
 
-          mode: 'CASH'
+          mobile:
+            cashDonationForm.donorMobile,
+
+          amount:
+            cashDonationForm.amount,
+
+          mode:
+            cashDonationForm.paymentMode,
+
+          transactionId:
+            cashDonationForm.transactionId,
+
+          receivedBy:
+            cashDonationForm.receivedBy,
+
+          paymentHolderName:
+            cashDonationForm.paymentHolderName
 
         }
 
       );
 
       alert(
-        'Cash Donation Added'
+        'Donation Recorded'
       );
 
       setCashDonationForm({
 
-        name: '',
-        mobile: '',
+        donorName: '',
+
+        donorMobile: '',
+
         amount: '',
+
+        paymentMode: 'CASH',
+
+        paymentHolderName: '',
+
+        transactionId: '',
+
         receivedBy: ''
 
       });
@@ -970,48 +1077,47 @@ const handleCashDonation =
   // ADD EVENT
   // =========================
 
-  const handleAddEvent =
-    async e => {
+  const handleAddEvent = async (e) => {
 
-      e.preventDefault();
+  e.preventDefault();
 
-      try {
+  try {
 
-        await addEvent(eventForm);
+    await axios.post(
 
-        alert(
-          'Event Created Successfully'
-        );
+      `${API_BASE_URL}/api/events`,
 
-        setEventForm({
+      eventForm
 
-          title: '',
+    );
 
-          eventDate: '',
+    // 😄 EVENTS DOBARA LOAD
 
-          location: '',
+    loadDashboard();
 
-          totalSlots: 100,
+    // 😄 FORM CLEAR
 
-          description: ''
+    setEventForm({
 
-        });
+      title: '',
 
-        loadDashboard();
+      eventDate: '',
 
-      } catch (error) {
+      location: '',
 
-        alert(
+      description: '',
 
-          error.response?.data?.message ||
+      bannerImage: ''
 
-          'Failed To Create Event'
+    });
 
-        );
+  } catch (error) {
 
-      }
+    console.log(error);
 
-    };
+  }
+
+};
 
   // =========================
   // LOGIN SCREEN
@@ -1064,6 +1170,20 @@ const handleCashDonation =
           <DonorTab donors={donors} />
 
         )}
+
+        {/* APPROVALS */}
+
+          {activeTab === 'APPROVALS' && (
+
+            <ApprovalTab
+
+              donations={pendingDonations}
+
+              loadDashboard={loadDashboard}
+
+            />
+
+          )}
 
         {/* EXPENSES */}
 

@@ -92,56 +92,63 @@ export const generateDonationReceipt =
         .fillColor('black');
 
       doc.text(
-        `Receipt No: DON-${donation.id}`,
-        80,
-        260
-      );
+  `Receipt No: DON-${donation.id}`,
+  80,
+  260
+);
 
-      doc.text(
-        `Donor Name: ${donation.user.name}`,
-        80,
-        300
-      );
+doc.text(
+  `Donor Name: ${donation.user.name}`,
+  80,
+  310
+);
 
-      doc.text(
-        `Mobile: ${donation.user.mobile_number}`,
-        80,
-        340
-      );
+doc.text(
+  `Payment Holder: ${donation.paymentHolderName || '-'}`,
+  80,
+  360
+);
 
-      doc
+doc.text(
+  `Mobile: ${donation.user.mobile_number}`,
+  80,
+  410
+);
+
+doc
   .font('Helvetica-Bold')
   .fontSize(20)
   .fillColor('#16a34a')
   .text(
-    `Amount:  ${donation.amount}`,
+    `Amount: ₹${donation.amount}`,
     80,
-    380
+    460
   );
-  doc
+
+doc
   .font('Helvetica')
   .fontSize(16)
   .fillColor('black');
 
-      doc.text(
-        `Payment Mode: ${donation.paymentMode}`,
-        80,
-        420
-      );
+doc.text(
+  `Payment Mode: ${donation.paymentMode}`,
+  80,
+  510
+);
 
-      doc.text(
-        `UTR Number: ${donation.utrNumber || 'N/A'}`,
-        80,
-        460
-      );
+doc.text(
+  `UTR Number: ${donation.utrNumber || 'N/A'}`,
+  80,
+  560
+);
 
-      doc.text(
-        `Date: ${new Date(
-          donation.createdAt
-        ).toLocaleString()}`,
-        80,
-        500
-      );
+doc.text(
+  `Date: ${new Date(
+    donation.createdAt
+  ).toLocaleString()}`,
+  80,
+  610
+);
 
       // 😄 VERIFIED STAMP
 

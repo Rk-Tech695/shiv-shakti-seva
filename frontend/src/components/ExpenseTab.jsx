@@ -63,11 +63,11 @@ const ExpenseTab = ({
 
 </div>
 
-<div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 mb-8">
+{/* <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 mb-8">
 
   <h3 className="text-xl font-bold mb-4">
 
-    Record Cash Donation
+    Record Donation
 
   </h3>
 
@@ -142,6 +142,173 @@ const ExpenseTab = ({
     >
 
       Add Cash Donation
+
+    </button>
+
+  </form>
+
+</div> */}
+
+<div className="bg-stone-50 p-6 rounded-3xl border border-stone-200">
+
+  <h3 className="text-3xl font-extrabold mb-6">
+
+    Record Donation
+
+  </h3>
+
+  <form
+    onSubmit={handleCashDonation}
+    className="space-y-4"
+  >
+
+    <input
+      type="text"
+      placeholder="Donor Name"
+      className="w-full border rounded-xl p-4"
+      value={cashDonationForm.donorName}
+      onChange={e =>
+        setCashDonationForm({
+
+          ...cashDonationForm,
+
+          donorName:
+            e.target.value
+
+        })
+      }
+    />
+
+    <input
+      type="text"
+      placeholder="Mobile Number"
+      className="w-full border rounded-xl p-4"
+      value={cashDonationForm.donorMobile}
+      onChange={e =>
+        setCashDonationForm({
+
+          ...cashDonationForm,
+
+          donorMobile:
+            e.target.value
+
+        })
+      }
+    />
+
+    <input
+      type="number"
+      placeholder="Amount"
+      className="w-full border rounded-xl p-4"
+      value={cashDonationForm.amount}
+      onChange={e =>
+        setCashDonationForm({
+
+          ...cashDonationForm,
+
+          amount:
+            e.target.value
+
+        })
+      }
+    />
+
+    <select
+      className="w-full border rounded-xl p-4"
+      value={cashDonationForm.paymentMode}
+      onChange={e =>
+        setCashDonationForm({
+
+          ...cashDonationForm,
+
+          paymentMode:
+            e.target.value
+
+        })
+      }
+    >
+
+      <option value="CASH">
+        CASH
+      </option>
+
+      <option value="UPI">
+        UPI
+      </option>
+
+      <option value="BANK_TRANSFER">
+        BANK TRANSFER
+      </option>
+
+    </select>
+
+    {(cashDonationForm.paymentMode === 'UPI' ||
+
+      cashDonationForm.paymentMode === 'BANK_TRANSFER') && (
+
+      <>
+
+        <input
+          type="text"
+          placeholder="UPI / Bank Holder Name"
+          className="w-full border rounded-xl p-4"
+          value={cashDonationForm.paymentHolderName}
+          onChange={e =>
+            setCashDonationForm({
+
+              ...cashDonationForm,
+
+              paymentHolderName:
+                e.target.value
+
+            })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Transaction ID / UTR"
+          className="w-full border rounded-xl p-4"
+          value={cashDonationForm.transactionId}
+          onChange={e =>
+            setCashDonationForm({
+
+              ...cashDonationForm,
+
+              transactionId:
+                e.target.value
+
+            })
+          }
+        />
+
+      </>
+
+    )}
+
+    <input
+      type="text"
+      placeholder="Received By"
+      className="w-full border rounded-xl p-4"
+      value={cashDonationForm.receivedBy}
+      onChange={e =>
+        setCashDonationForm({
+
+          ...cashDonationForm,
+
+          receivedBy:
+            e.target.value
+
+        })
+      }
+    />
+
+    <button
+      type="submit"
+      className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold"
+    >
+
+      Record Donation
 
     </button>
 

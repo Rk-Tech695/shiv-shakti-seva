@@ -1,68 +1,176 @@
+// import axios from 'axios';
+
+// import API_BASE_URL from '../config/config';
+
+// export const fetchDashboardData = async () => {
+
+//   const [
+
+//     donorsRes,
+
+//     financeRes,
+
+//     eventsRes,
+
+//     bookingsRes
+
+//   ] = await Promise.all([
+
+//     axios.get(`${API_BASE_URL}/api/users`),
+
+//     axios.get(`${API_BASE_URL}/api/finances`),
+
+//     axios.get(`${API_BASE_URL}/api/events`),
+
+//     // axios.get(`${API_BASE_URL}/api/booking-groups`)
+
+//   ]);
+
+//   return {
+
+//     donors: donorsRes.data,
+
+//     finances: financeRes.data,
+
+//     events: eventsRes.data,
+
+//     bookings: bookingsRes.data.bookings
+
+//   };
+
+// };
+
+// export const loginAdmin = async (data) => {
+
+//   return axios.post(
+//     `${API_BASE_URL}/api/admin/login`,
+//     data
+//   );
+
+// };
+
+// export const addExpense = async (data) => {
+
+//   return axios.post(
+//     `${API_BASE_URL}/api/expenses`,
+//     data
+//   );
+
+// };
+
+// export const addEvent = async (data) => {
+
+//   return axios.post(
+//     `${API_BASE_URL}/api/events`,
+//     data
+//   );
+
+// };
+
 import axios from 'axios';
 
 import API_BASE_URL from '../config/config';
 
-export const fetchDashboardData = async () => {
+export const fetchDashboardData =
+  async () => {
 
-  const [
+    try {
 
-    donorsRes,
+      const donorsRes =
+        await axios.get(
+          `${API_BASE_URL}/api/users`
+        );
 
-    financeRes,
+      const financeRes =
+        await axios.get(
+          `${API_BASE_URL}/api/finances`
+        );
 
-    eventsRes,
+      const eventsRes =
+        await axios.get(
+          `${API_BASE_URL}/api/events`
+        );
 
-    bookingsRes
+      let bookings = [];
 
-  ] = await Promise.all([
+      try {
 
-    axios.get(`${API_BASE_URL}/api/users`),
+        const bookingsRes =
+          await axios.get(
+            `${API_BASE_URL}/api/booking-groups`
+          );
 
-    axios.get(`${API_BASE_URL}/api/finances`),
+        bookings =
+          bookingsRes.data.bookings || [];
 
-    axios.get(`${API_BASE_URL}/api/events`),
+      } catch (error) {
 
-    axios.get(`${API_BASE_URL}/api/booking-groups`)
+        console.log(
+          'Booking API Failed'
+        );
 
-  ]);
+      }
 
-  return {
+      return {
 
-    donors: donorsRes.data,
+        donors:
+          donorsRes.data || [],
 
-    finances: financeRes.data,
+        finances:
+          financeRes.data || {},
 
-    events: eventsRes.data,
+        events:
+          eventsRes.data || [],
 
-    bookings: bookingsRes.data.bookings
+        bookings
+
+      };
+
+    } catch (error) {
+
+      console.log(error);
+
+      throw error;
+
+    }
 
   };
 
-};
+export const loginAdmin =
+  async (data) => {
 
-export const loginAdmin = async (data) => {
+    return axios.post(
 
-  return axios.post(
-    `${API_BASE_URL}/api/admin/login`,
-    data
-  );
+      `${API_BASE_URL}/api/admin/login`,
 
-};
+      data
 
-export const addExpense = async (data) => {
+    );
 
-  return axios.post(
-    `${API_BASE_URL}/api/expenses`,
-    data
-  );
+  };
 
-};
+export const addExpense =
+  async (data) => {
 
-export const addEvent = async (data) => {
+    return axios.post(
 
-  return axios.post(
-    `${API_BASE_URL}/api/events`,
-    data
-  );
+      `${API_BASE_URL}/api/expenses`,
 
-};
+      data
+
+    );
+
+  };
+
+export const addEvent =
+  async (data) => {
+
+    return axios.post(
+
+      `${API_BASE_URL}/api/events`,
+
+      data
+
+    );
+
+  };

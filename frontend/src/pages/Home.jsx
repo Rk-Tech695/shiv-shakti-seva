@@ -1,828 +1,1316 @@
+// import { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
+// import API_BASE_URL from '../config/config';
+// import axios from 'axios';
+
+// const Home = () => {
+//   const [events, setEvents] = useState([]);
+//   const [bookingForm, setBookingForm] = useState({
+
+//   mobileNumber: '',
+
+//   eventId: null,
+
+//   devotees: [
+
+//     {
+//       name: '',
+//       age: '',
+//       gender: 'MALE'
+//     }
+
+//   ]
+
+// });
+
+// const heroSlides = [
+
+//   {
+
+//     image: '/kedarnath.png',
+
+//     title: 'Kedarnath Dham',
+
+//     subtitle: 'Land of Divine Himalayas'
+
+//   },
+
+//   {
+
+//     image: '/baidyanath.png',
+
+//     title: 'Baba Baidyanath Dham',
+
+//     subtitle: 'Jyotirlinga of Devotion'
+
+//   },
+
+//   {
+
+//     image: '/kashi.jpg',
+
+//     title: 'Kashi Vishwanath',
+
+//     subtitle: 'City of Mahadev'
+
+//   },
+
+//   {
+
+//     image: '/mahakal.jpg',
+
+//     title: 'Mahakaleshwar',
+
+//     subtitle: 'Temple of Time & Power'
+
+//   },
+
+//   {
+
+//     image: '/somnath.jpg',
+
+//     title: 'Somnath Jyotirlinga',
+
+//     subtitle: 'The Eternal Shrine'
+
+//   }
+
+// ];
+// const [bookingSuccess, setBookingSuccess] =
+//   useState(null);
+
+// const [currentImage, setCurrentImage] =
+//   useState(0);  
+
+//   useEffect(() => {
+
+//   const interval = setInterval(() => {
+
+//     setCurrentImage(prev =>
+
+//       prev === heroSlides.length - 1
+//         ? 0
+//         : prev + 1
+
+//     );
+
+//   }, 4000);
+
+//   return () =>
+//     clearInterval(interval);
+
+// }, []);
+
+// const fetchEvents = async () => {
+
+//   try {
+
+//     const res = await axios.get(
+//       `${API_BASE_URL}/api/events`
+//     );
+
+//     setEvents(res.data);
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//   }
+
+// };
+
+//   useEffect(() => {
+
+//   fetchEvents();
+
+// }, []);
+
+//   const handleBook = async (e) => {
+
+//   e.preventDefault();
+
+//   try {
+
+//     const res = await axios.post(
+
+//       `${API_BASE_URL}/api/booking-groups`,
+
+//       bookingForm
+
+//     );
+
+//     setBookingSuccess(
+//   res.data.bookingGroup
+// );
+
+//     // setBookingForm({
+
+//     //   mobileNumber: '',
+
+//     //   eventId: null,
+
+//     //   devotees: [
+
+//     //     {
+//     //       name: '',
+//     //       age: '',
+//     //       gender: 'MALE'
+//     //     }
+
+//     //   ]
+
+//     // });
+
+//     fetchEvents();
+
+//   } catch (err) {
+
+//   console.log(err);
+
+//   alert(
+
+//     err?.response?.data?.message ||
+
+//     'Booking failed'
+
+//   );
+
+// }
+
+// };
+// const addDevotee = () => {
+
+//   setBookingForm({
+
+//     ...bookingForm,
+
+//     devotees: [
+
+//       ...bookingForm.devotees,
+
+//       {
+//         name: '',
+//         age: '',
+//         gender: 'MALE'
+//       }
+
+//     ]
+
+//   });
+
+// };
+
+// const removeDevotee = (index) => {
+
+//   const updated =
+//     bookingForm.devotees.filter(
+//       (_, i) => i !== index
+//     );
+
+//   setBookingForm({
+
+//     ...bookingForm,
+
+//     devotees: updated
+
+//   });
+
+// };
+
+//   return (
+//     <div className="space-y-16">
+//       {/* Official Foundation Banner */}
+//       <div className="bg-white border-2 border-orange-600 rounded-xl p-4 text-center shadow-lg">
+//         <h2 className="text-3xl font-extrabold text-blue-900 uppercase tracking-wide">Shiv Shakti Seva Foundation</h2>
+//         <h2 className="text-2xl font-bold text-red-600 mt-2">CIN No - U88900CT2026NPL020288</h2>
+//         <p className="text-blue-800 font-bold text-lg mt-2">Address - Ward No.13, Ring Road No.02, Gurusagar Nagar, Raipur- 492001, Chattisgarh</p>
+//       </div>
+
+//       {/* Hero Section */}
+//       {/* <section className="relative bg-gradient-to-br from-stone-900 via-orange-950 to-stone-900 rounded-[2.5rem] p-12 md:p-20 overflow-hidden shadow-2xl border border-orange-800/50">
+//         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-orange-600 rounded-full opacity-20 blur-[120px]"></div>
+//         <div className="relative z-10 max-w-3xl">
+//           <div className="inline-block px-4 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-300 font-semibold text-sm mb-6 backdrop-blur-md">
+//             🙏 Welcome to the Divine Path
+//           </div>
+//           <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+//             Om Namah <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Shivaya</span>
+//           </h1>
+//           <p className="text-xl md:text-2xl text-stone-300 mb-10 leading-relaxed font-light">
+//             Spread the divine teachings of Lord Shiva, participate in spiritual events, and serve humanity through your generous contributions.
+//           </p>
+//           <div className="flex flex-wrap gap-4">
+//             <Link to="/donate" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-orange-600/30 transition-all hover:scale-105 hover:shadow-orange-600/50 flex items-center gap-2 text-lg">
+//               Donate Now
+//             </Link>
+//           </div>
+//         </div>
+//       </section> */}
+//       <section className="relative rounded-[2.5rem] overflow-hidden min-h-[85vh] flex items-center shadow-2xl">
+
+//   {/* BACKGROUND IMAGE */}
+
+//   <img
+//   src={heroSlides[currentImage].image}
+//   alt="Shiv Temple"
+//   className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
+// />
+
+//   {/* DARK OVERLAY */}
+
+//   <div className="absolute inset-0 bg-black/60"></div>
+
+//   {/* ORANGE GLOW */}
+
+//   <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500 opacity-20 blur-[120px] rounded-full"></div>
+
+//   {/* CONTENT */}
+
+//   <div className="relative z-10 max-w-3xl px-8 md:px-16 py-20">
+
+//     <div className="inline-block px-4 py-2 rounded-full bg-orange-500/20 border border-orange-400/30 text-orange-200 font-semibold text-sm mb-6 backdrop-blur-md">
+
+//       🙏 Har Har Mahadev
+
+//     </div>
+
+//     <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 tracking-tight">
+
+//   <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-red-500">
+
+//     {heroSlides[currentImage].title}
+
+//   </span>
+
+// </h1>
+
+// <p className="text-xl md:text-2xl text-orange-100 font-semibold mb-6">
+
+//   {heroSlides[currentImage].subtitle}
+
+// </p>
+
+//     <p className="text-xl md:text-2xl text-stone-200 leading-relaxed mb-10">
+
+//       Join the divine journey of devotion,
+//       spirituality and seva with
+//       Shiv Shakti Seva Foundation.
+
+//     </p>
+
+//     <div className="flex flex-wrap gap-4">
+
+//       <Link
+
+//         to="/donate"
+
+//         className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition-all hover:scale-105"
+
+//       >
+
+//         Donate Now
+
+//       </Link>
+
+//       <button
+
+//   onClick={() => {
+
+//     document
+//       .getElementById('events')
+//       ?.scrollIntoView({
+
+//         behavior: 'smooth'
+
+//       });
+
+//   }}
+
+//   className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition"
+
+// >
+
+//   Explore Events
+
+// </button>
+
+//     </div>
+
+//   </div>
+//   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+
+//   {heroSlides.map((_, index) => (
+
+//     <button
+
+//       key={index}
+
+//       onClick={() =>
+//         setCurrentImage(index)
+//       }
+
+//       className={`w-3 h-3 rounded-full transition-all ${
+//         currentImage === index
+//           ? 'bg-orange-400 w-8'
+//           : 'bg-white/50'
+//       }`}
+
+//     />
+
+//   ))}
+
+// </div>
+
+// </section>
+
+
+//       {/* Trustee Section */}
+//       <section className="py-12 bg-white rounded-[2.5rem] p-10 shadow-lg border border-stone-100 flex flex-col md:flex-row items-center gap-8">
+//         <div className="w-48 h-48 rounded-full bg-stone-200 overflow-hidden shadow-inner border-4 border-orange-100">
+//           <img src="https://via.placeholder.com/200?text=Trustee+Photo" alt="Trustee" className="w-full h-full object-cover" />
+//         </div>
+//         <div>
+//           <h2 className="text-3xl font-extrabold text-stone-900 mb-2">Shri Dummy Sharma</h2>
+//           <p className="text-orange-600 font-bold text-xl mb-4">Founder & Chief Trustee</p>
+//           <p className="text-stone-600 text-lg mb-4">Dedicated to the service of Lord Shiva and humanity. "Seva is the ultimate form of devotion."</p>
+//           <div className="inline-flex items-center gap-2 bg-stone-100 px-4 py-2 rounded-lg font-semibold text-stone-800">
+//             📞 +91 98765 43210
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Upcoming Events Section */}
+//       <section id="events" className="py-12">
+//         <div className="text-center mb-12">
+//           <h2 className="text-4xl font-extrabold text-stone-900 mb-4">Upcoming Programs</h2>
+//           <p className="text-stone-500 text-lg">Join Baba ka Darbar and experience the divine energy.</p>
+//         </div>
+
+//         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+//           {events.length === 0 ? <p className="text-center text-stone-500 col-span-3">No upcoming events scheduled yet.</p> : events.map(event => (
+//             <div key={event.id} className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100 relative overflow-hidden group">
+//               <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-400 to-red-500"></div>
+
+//               <h3 className="text-2xl font-bold text-stone-900 mb-3">{event.title}</h3>
+//               <p className="text-stone-600 mb-6">{event.description}</p>
+
+//               <div className="flex justify-between items-center mb-6 bg-stone-50 p-4 rounded-xl">
+//                 <div>
+//                   <p className="text-xs text-stone-500 uppercase font-bold tracking-wider mb-1">Date</p>
+//                   <p className="font-semibold text-stone-900">{new Date(event.eventDate).toLocaleDateString()}</p>
+//                 </div>
+//                 <div className="text-right">
+//                   <p className="text-xs text-stone-500 uppercase font-bold tracking-wider mb-1">Location</p>
+//                   <p className="font-semibold text-stone-900">{event.location}</p>
+//                 </div>
+//                 <div className="mb-4 space-y-1">
+
+//   {/* <p className="text-orange-600 font-semibold text-sm">
+
+//     Booked:
+//     {' '}
+//     {event.bookedSlots}
+
+//   </p> */}
+
+//   {/* <p className="text-green-600 font-semibold text-sm">
+
+//     Available:
+//     {' '}
+//     {event.totalSlots - event.bookedSlots}
+
+//   </p> */}
+
+// </div>
+//               </div>
+
+//               {bookingForm.eventId === event.id ? (
+
+//   <>
+
+//     {/* <form
+//       onSubmit={handleBook}
+//       className="space-y-4"
+//     >
+
+//       <input
+//         type="tel"
+//         required
+//         placeholder="Mobile Number"
+//         className="w-full border rounded-xl p-3"
+//         value={bookingForm.mobileNumber}
+//         onChange={e =>
+//           setBookingForm({
+//             ...bookingForm,
+//             mobileNumber: e.target.value
+//           })
+//         }
+//       />
+
+//       {bookingForm.devotees.map(
+//         (devotee, index) => (
+
+//           <div
+//             key={index}
+//             className="border rounded-xl p-4 bg-stone-50 space-y-3"
+//           >
+
+//             <div className="flex justify-between">
+
+//               <h4 className="font-bold">
+//                 Devotee {index + 1}
+//               </h4>
+
+//               {bookingForm.devotees.length > 1 && (
+
+//                 <button
+//                   type="button"
+//                   onClick={() =>
+//                     removeDevotee(index)
+//                   }
+//                   className="text-red-600 text-sm font-bold cursor-pointer"
+//                 >
+
+//                   Remove
+
+//                 </button>
+
+//               )}
+
+//             </div>
+
+//             <input
+//               type="text"
+//               required
+//               placeholder="Full Name"
+//               className="w-full border rounded-lg p-2"
+//               value={devotee.name}
+//               onChange={e => {
+
+//                 const updated = [
+//                   ...bookingForm.devotees
+//                 ];
+
+//                 updated[index].name =
+//                   e.target.value;
+
+//                 setBookingForm({
+//                   ...bookingForm,
+//                   devotees: updated
+//                 });
+
+//               }}
+//             />
+
+//             <input
+//               type="number"
+//               required
+//               placeholder="Age"
+//               className="w-full border rounded-lg p-2"
+//               value={devotee.age}
+//               onChange={e => {
+
+//                 const updated = [
+//                   ...bookingForm.devotees
+//                 ];
+
+//                 updated[index].age =
+//                   e.target.value;
+
+//                 setBookingForm({
+//                   ...bookingForm,
+//                   devotees: updated
+//                 });
+
+//               }}
+//             />
+
+//             <select
+//               className="w-full border rounded-lg p-2"
+//               value={devotee.gender}
+//               onChange={e => {
+
+//                 const updated = [
+//                   ...bookingForm.devotees
+//                 ];
+
+//                 updated[index].gender =
+//                   e.target.value;
+
+//                 setBookingForm({
+//                   ...bookingForm,
+//                   devotees: updated
+//                 });
+
+//               }}
+//             >
+
+//               <option value="MALE">
+//                 Male
+//               </option>
+
+//               <option value="FEMALE">
+//                 Female
+//               </option>
+
+//             </select>
+
+//           </div>
+
+//         )
+//       )}
+
+//       <button
+//         type="button"
+//         onClick={addDevotee}
+//         className="w-full bg-blue-600 text-white py-2 rounded-xl font-bold cursor-pointer"
+//       >
+
+//         + Add Devotee
+
+//       </button>
+
+//       <button
+//         type="submit"
+//         className="w-full bg-green-600 text-white py-3 rounded-xl font-bold cursor-pointer"
+//       >
+
+//         Confirm Booking
+
+//       </button>
+
+//       <button
+//         type="button"
+//         onClick={() =>
+//           setBookingForm({
+
+//             mobileNumber: '',
+
+//             eventId: null,
+
+//             devotees: [
+//               {
+//                 name: '',
+//                 age: '',
+//                 gender: 'MALE'
+//               }
+//             ]
+
+//           })
+//         }
+//         className="w-full text-stone-500 text-sm cursor-pointer"
+//       >
+
+//         Cancel
+
+//       </button>
+
+//     </form> */}
+
+//     {/* {bookingSuccess && (
+
+//       <div className="mt-5 bg-green-50 border border-green-200 rounded-2xl p-5 space-y-4">
+
+//         <h3 className="text-2xl font-bold text-green-700">
+
+//           Booking Confirmed 🎉
+
+//         </h3>
+
+//         <p className="text-stone-700">
+
+//           PNR:
+//           {' '}
+//           <span className="font-bold text-orange-600">
+
+//             {bookingSuccess.pnr}
+
+//           </span>
+
+//         </p>
+
+//         <div className="flex gap-3 flex-wrap">
+
+//           <button
+
+//             onClick={() =>
+
+//               window.open(
+
+//                 `${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
+
+//               )
+
+//             }
+
+//             className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold cursor-pointer"
+
+//           >
+
+//             Download Ticket
+
+//           </button>
+
+//           <a
+
+//             href={`https://wa.me/${bookingSuccess.mobileNumber}?text=${encodeURIComponent(
+
+//               `🙏 Booking Confirmed
+
+// PNR: ${bookingSuccess.pnr}
+
+// Download Ticket:
+// ${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
+
+//             )}`}
+
+//             target="_blank"
+
+//             className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold"
+
+//           >
+
+//             WhatsApp Ticket
+
+//           </a>
+
+//         </div>
+
+//       </div>
+
+//     )} */}
+
+//     {/* {bookingSuccess && (
+
+//   <div className="mt-5 bg-green-50 border border-green-200 rounded-2xl p-6 space-y-5">
+
+//     <div>
+
+//       <h3 className="text-3xl font-bold text-green-700">
+
+//         Booking Confirmed 🎉
+
+//       </h3>
+
+//       <p className="text-stone-700 mt-2">
+
+//         Har Har Mahadev 🙏
+//         Your slot has been booked successfully.
+
+//       </p>
+
+//     </div>
+
+//     <div className="bg-white rounded-xl p-4 border border-green-100">
+
+//       <p className="text-sm text-stone-500">
+//         PNR Number
+//       </p>
+
+//       <p className="text-2xl font-bold text-orange-600">
+
+//         {bookingSuccess.pnr}
+
+//       </p>
+
+//     </div>
+
+//     <div className="flex gap-3 flex-wrap">
+
+//       <button
+
+//         onClick={() =>
+
+//           window.open(
+
+//             `${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
+
+//           )
+
+//         }
+
+//         className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold cursor-pointer"
+
+//       >
+
+//         Download Ticket
+
+//       </button>
+
+//       <a
+
+//         href={`https://wa.me/?text=${encodeURIComponent(
+
+//           `🙏 Booking Confirmed
+
+// PNR: ${bookingSuccess.pnr}
+
+// Download Ticket:
+// ${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
+
+//         )}`}
+
+//         target="_blank"
+
+//         className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold"
+
+//       >
+
+//         WhatsApp Ticket
+
+//       </a>
+
+//     </div>
+
+//   </div>
+
+// )} */}
+
+//   </>
+
+// ) : (
+
+//   event.slotEnabled ? (
+
+//     <button
+
+//       onClick={() =>
+//         setBookingForm({
+
+//           mobileNumber: '',
+
+//           eventId: event.id,
+
+//           devotees: [
+//             {
+//               name: '',
+//               age: '',
+//               gender: 'MALE'
+//             }
+//           ]
+
+//         })
+//       }
+
+//       className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white py-4 rounded-2xl font-bold transition-all hover:scale-[1.02] shadow-lg shadow-orange-600/20 cursor-pointer"
+
+//     >
+
+//       Book Slot
+
+//     </button>
+
+//   ) : (
+
+//     <button
+
+//       disabled
+
+//       className="w-full bg-red-500 text-white py-4 rounded-xl font-bold opacity-80"
+
+//     >
+
+//       Slots Closed
+
+//     </button>
+
+//   )
+
+// )}
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default Home;
 import { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
+
 import API_BASE_URL from '../config/config';
+
 import axios from 'axios';
 
 const Home = () => {
-  const [events, setEvents] = useState([]);
-  const [bookingForm, setBookingForm] = useState({
 
-  mobileNumber: '',
+  const [events, setEvents] =
+    useState([]);
 
-  eventId: null,
+  const [currentImage, setCurrentImage] =
+    useState(0);
 
-  devotees: [
+  const heroSlides = [
 
     {
-      name: '',
-      age: '',
-      gender: 'MALE'
+
+      image: '/kedarnath.png',
+
+      title: 'Kedarnath Dham',
+
+      subtitle:
+        'Land of Divine Himalayas'
+
+    },
+
+    {
+
+      image: '/baidyanath.png',
+
+      title:
+        'Baba Baidyanath Dham',
+
+      subtitle:
+        'Jyotirlinga of Devotion'
+
+    },
+
+    {
+
+      image: '/kashi.jpg',
+
+      title:
+        'Kashi Vishwanath',
+
+      subtitle:
+        'City of Mahadev'
+
+    },
+
+    {
+
+      image: '/mahakal.jpg',
+
+      title:
+        'Mahakaleshwar',
+
+      subtitle:
+        'Temple of Time & Power'
+
+    },
+
+    {
+
+      image: '/somnath.jpg',
+
+      title:
+        'Somnath Jyotirlinga',
+
+      subtitle:
+        'The Eternal Shrine'
+
     }
 
-  ]
-
-});
-
-const heroSlides = [
-
-  {
-
-    image: '/kedarnath.png',
-
-    title: 'Kedarnath Dham',
-
-    subtitle: 'Land of Divine Himalayas'
-
-  },
-
-  {
-
-    image: '/baidyanath.png',
-
-    title: 'Baba Baidyanath Dham',
-
-    subtitle: 'Jyotirlinga of Devotion'
-
-  },
-
-  {
-
-    image: '/kashi.jpg',
-
-    title: 'Kashi Vishwanath',
-
-    subtitle: 'City of Mahadev'
-
-  },
-
-  {
-
-    image: '/mahakal.jpg',
-
-    title: 'Mahakaleshwar',
-
-    subtitle: 'Temple of Time & Power'
-
-  },
-
-  {
-
-    image: '/somnath.jpg',
-
-    title: 'Somnath Jyotirlinga',
-
-    subtitle: 'The Eternal Shrine'
-
-  }
-
-];
-const [bookingSuccess, setBookingSuccess] =
-  useState(null);
-
-const [currentImage, setCurrentImage] =
-  useState(0);  
+  ];
 
   useEffect(() => {
 
-  const interval = setInterval(() => {
+    const interval =
+      setInterval(() => {
 
-    setCurrentImage(prev =>
+        setCurrentImage(prev =>
 
-      prev === heroSlides.length - 1
-        ? 0
-        : prev + 1
+          prev ===
+          heroSlides.length - 1
 
-    );
+            ? 0
 
-  }, 4000);
+            : prev + 1
 
-  return () =>
-    clearInterval(interval);
+        );
 
-}, []);
+      }, 4000);
 
-const fetchEvents = async () => {
+    return () =>
+      clearInterval(interval);
 
-  try {
+  }, []);
 
-    const res = await axios.get(
-      `${API_BASE_URL}/api/events`
-    );
+  const fetchEvents =
+    async () => {
 
-    setEvents(res.data);
+      try {
 
-  } catch (error) {
+        const res =
+          await axios.get(
 
-    console.log(error);
+            `${API_BASE_URL}/api/events`
 
-  }
+          );
 
-};
+        setEvents(res.data);
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
   useEffect(() => {
-
-  fetchEvents();
-
-}, []);
-
-  const handleBook = async (e) => {
-
-  e.preventDefault();
-
-  try {
-
-    const res = await axios.post(
-
-      `${API_BASE_URL}/api/booking-groups`,
-
-      bookingForm
-
-    );
-
-    setBookingSuccess(
-  res.data.bookingGroup
-);
-
-    // setBookingForm({
-
-    //   mobileNumber: '',
-
-    //   eventId: null,
-
-    //   devotees: [
-
-    //     {
-    //       name: '',
-    //       age: '',
-    //       gender: 'MALE'
-    //     }
-
-    //   ]
-
-    // });
 
     fetchEvents();
 
-  } catch (err) {
-
-  console.log(err);
-
-  alert(
-
-    err?.response?.data?.message ||
-
-    'Booking failed'
-
-  );
-
-}
-
-};
-const addDevotee = () => {
-
-  setBookingForm({
-
-    ...bookingForm,
-
-    devotees: [
-
-      ...bookingForm.devotees,
-
-      {
-        name: '',
-        age: '',
-        gender: 'MALE'
-      }
-
-    ]
-
-  });
-
-};
-
-const removeDevotee = (index) => {
-
-  const updated =
-    bookingForm.devotees.filter(
-      (_, i) => i !== index
-    );
-
-  setBookingForm({
-
-    ...bookingForm,
-
-    devotees: updated
-
-  });
-
-};
+  }, []);
 
   return (
+
     <div className="space-y-16">
-      {/* Official Foundation Banner */}
+
+      {/* FOUNDATION BANNER */}
+
       <div className="bg-white border-2 border-orange-600 rounded-xl p-4 text-center shadow-lg">
-        <h2 className="text-3xl font-extrabold text-blue-900 uppercase tracking-wide">Shiv Shakti Seva Foundation</h2>
-        <h2 className="text-2xl font-bold text-red-600 mt-2">CIN No - U88900CT2026NPL020288</h2>
-        <p className="text-blue-800 font-bold text-lg mt-2">Address - Ward No.13, Ring Road No.02, Gurusagar Nagar, Raipur- 492001, Chattisgarh</p>
-      </div>
 
-      {/* Hero Section */}
-      {/* <section className="relative bg-gradient-to-br from-stone-900 via-orange-950 to-stone-900 rounded-[2.5rem] p-12 md:p-20 overflow-hidden shadow-2xl border border-orange-800/50">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-orange-600 rounded-full opacity-20 blur-[120px]"></div>
-        <div className="relative z-10 max-w-3xl">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-orange-500/20 border border-orange-500/30 text-orange-300 font-semibold text-sm mb-6 backdrop-blur-md">
-            🙏 Welcome to the Divine Path
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-            Om Namah <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Shivaya</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-stone-300 mb-10 leading-relaxed font-light">
-            Spread the divine teachings of Lord Shiva, participate in spiritual events, and serve humanity through your generous contributions.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link to="/donate" className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-orange-600/30 transition-all hover:scale-105 hover:shadow-orange-600/50 flex items-center gap-2 text-lg">
-              Donate Now
-            </Link>
-          </div>
-        </div>
-      </section> */}
-      <section className="relative rounded-[2.5rem] overflow-hidden min-h-[85vh] flex items-center shadow-2xl">
+        <h2 className="text-3xl font-extrabold text-blue-900 uppercase tracking-wide">
 
-  {/* BACKGROUND IMAGE */}
+          Shiv Shakti Seva Foundation
 
-  <img
-  src={heroSlides[currentImage].image}
-  alt="Shiv Temple"
-  className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
-/>
+        </h2>
 
-  {/* DARK OVERLAY */}
+        <h2 className="text-2xl font-bold text-red-600 mt-2">
 
-  <div className="absolute inset-0 bg-black/60"></div>
+          CIN No - U88900CT2026NPL020288
 
-  {/* ORANGE GLOW */}
+        </h2>
 
-  <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500 opacity-20 blur-[120px] rounded-full"></div>
+        <p className="text-blue-800 font-bold text-lg mt-2">
 
-  {/* CONTENT */}
-
-  <div className="relative z-10 max-w-3xl px-8 md:px-16 py-20">
-
-    <div className="inline-block px-4 py-2 rounded-full bg-orange-500/20 border border-orange-400/30 text-orange-200 font-semibold text-sm mb-6 backdrop-blur-md">
-
-      🙏 Har Har Mahadev
-
-    </div>
-
-    <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 tracking-tight">
-
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-red-500">
-
-    {heroSlides[currentImage].title}
-
-  </span>
-
-</h1>
-
-<p className="text-xl md:text-2xl text-orange-100 font-semibold mb-6">
-
-  {heroSlides[currentImage].subtitle}
-
-</p>
-
-    <p className="text-xl md:text-2xl text-stone-200 leading-relaxed mb-10">
-
-      Join the divine journey of devotion,
-      spirituality and seva with
-      Shiv Shakti Seva Foundation.
-
-    </p>
-
-    <div className="flex flex-wrap gap-4">
-
-      <Link
-
-        to="/donate"
-
-        className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition-all hover:scale-105"
-
-      >
-
-        Donate Now
-
-      </Link>
-
-      <button
-
-  onClick={() => {
-
-    document
-      .getElementById('events')
-      ?.scrollIntoView({
-
-        behavior: 'smooth'
-
-      });
-
-  }}
-
-  className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition"
-
->
-
-  Explore Events
-
-</button>
-
-    </div>
-
-  </div>
-  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-
-  {heroSlides.map((_, index) => (
-
-    <button
-
-      key={index}
-
-      onClick={() =>
-        setCurrentImage(index)
-      }
-
-      className={`w-3 h-3 rounded-full transition-all ${
-        currentImage === index
-          ? 'bg-orange-400 w-8'
-          : 'bg-white/50'
-      }`}
-
-    />
-
-  ))}
-
-</div>
-
-</section>
-
-
-      {/* Trustee Section */}
-      <section className="py-12 bg-white rounded-[2.5rem] p-10 shadow-lg border border-stone-100 flex flex-col md:flex-row items-center gap-8">
-        <div className="w-48 h-48 rounded-full bg-stone-200 overflow-hidden shadow-inner border-4 border-orange-100">
-          <img src="https://via.placeholder.com/200?text=Trustee+Photo" alt="Trustee" className="w-full h-full object-cover" />
-        </div>
-        <div>
-          <h2 className="text-3xl font-extrabold text-stone-900 mb-2">Shri Dummy Sharma</h2>
-          <p className="text-orange-600 font-bold text-xl mb-4">Founder & Chief Trustee</p>
-          <p className="text-stone-600 text-lg mb-4">Dedicated to the service of Lord Shiva and humanity. "Seva is the ultimate form of devotion."</p>
-          <div className="inline-flex items-center gap-2 bg-stone-100 px-4 py-2 rounded-lg font-semibold text-stone-800">
-            📞 +91 98765 43210
-          </div>
-        </div>
-      </section>
-
-      {/* Upcoming Events Section */}
-      <section id="events" className="py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-stone-900 mb-4">Upcoming Programs</h2>
-          <p className="text-stone-500 text-lg">Join Baba ka Darbar and experience the divine energy.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {events.length === 0 ? <p className="text-center text-stone-500 col-span-3">No upcoming events scheduled yet.</p> : events.map(event => (
-            <div key={event.id} className="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-400 to-red-500"></div>
-
-              <h3 className="text-2xl font-bold text-stone-900 mb-3">{event.title}</h3>
-              <p className="text-stone-600 mb-6">{event.description}</p>
-
-              <div className="flex justify-between items-center mb-6 bg-stone-50 p-4 rounded-xl">
-                <div>
-                  <p className="text-xs text-stone-500 uppercase font-bold tracking-wider mb-1">Date</p>
-                  <p className="font-semibold text-stone-900">{new Date(event.eventDate).toLocaleDateString()}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-stone-500 uppercase font-bold tracking-wider mb-1">Location</p>
-                  <p className="font-semibold text-stone-900">{event.location}</p>
-                </div>
-                <div className="mb-4 space-y-1">
-
-  <p className="text-orange-600 font-semibold text-sm">
-
-    Booked:
-    {' '}
-    {event.bookedSlots}
-
-  </p>
-
-  <p className="text-green-600 font-semibold text-sm">
-
-    Available:
-    {' '}
-    {event.totalSlots - event.bookedSlots}
-
-  </p>
-
-</div>
-              </div>
-
-              {bookingForm.eventId === event.id ? (
-
-  <>
-
-    <form
-      onSubmit={handleBook}
-      className="space-y-4"
-    >
-
-      <input
-        type="tel"
-        required
-        placeholder="Mobile Number"
-        className="w-full border rounded-xl p-3"
-        value={bookingForm.mobileNumber}
-        onChange={e =>
-          setBookingForm({
-            ...bookingForm,
-            mobileNumber: e.target.value
-          })
-        }
-      />
-
-      {bookingForm.devotees.map(
-        (devotee, index) => (
-
-          <div
-            key={index}
-            className="border rounded-xl p-4 bg-stone-50 space-y-3"
-          >
-
-            <div className="flex justify-between">
-
-              <h4 className="font-bold">
-                Devotee {index + 1}
-              </h4>
-
-              {bookingForm.devotees.length > 1 && (
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    removeDevotee(index)
-                  }
-                  className="text-red-600 text-sm font-bold cursor-pointer"
-                >
-
-                  Remove
-
-                </button>
-
-              )}
-
-            </div>
-
-            <input
-              type="text"
-              required
-              placeholder="Full Name"
-              className="w-full border rounded-lg p-2"
-              value={devotee.name}
-              onChange={e => {
-
-                const updated = [
-                  ...bookingForm.devotees
-                ];
-
-                updated[index].name =
-                  e.target.value;
-
-                setBookingForm({
-                  ...bookingForm,
-                  devotees: updated
-                });
-
-              }}
-            />
-
-            <input
-              type="number"
-              required
-              placeholder="Age"
-              className="w-full border rounded-lg p-2"
-              value={devotee.age}
-              onChange={e => {
-
-                const updated = [
-                  ...bookingForm.devotees
-                ];
-
-                updated[index].age =
-                  e.target.value;
-
-                setBookingForm({
-                  ...bookingForm,
-                  devotees: updated
-                });
-
-              }}
-            />
-
-            <select
-              className="w-full border rounded-lg p-2"
-              value={devotee.gender}
-              onChange={e => {
-
-                const updated = [
-                  ...bookingForm.devotees
-                ];
-
-                updated[index].gender =
-                  e.target.value;
-
-                setBookingForm({
-                  ...bookingForm,
-                  devotees: updated
-                });
-
-              }}
-            >
-
-              <option value="MALE">
-                Male
-              </option>
-
-              <option value="FEMALE">
-                Female
-              </option>
-
-            </select>
-
-          </div>
-
-        )
-      )}
-
-      <button
-        type="button"
-        onClick={addDevotee}
-        className="w-full bg-blue-600 text-white py-2 rounded-xl font-bold cursor-pointer"
-      >
-
-        + Add Devotee
-
-      </button>
-
-      <button
-        type="submit"
-        className="w-full bg-green-600 text-white py-3 rounded-xl font-bold cursor-pointer"
-      >
-
-        Confirm Booking
-
-      </button>
-
-      <button
-        type="button"
-        onClick={() =>
-          setBookingForm({
-
-            mobileNumber: '',
-
-            eventId: null,
-
-            devotees: [
-              {
-                name: '',
-                age: '',
-                gender: 'MALE'
-              }
-            ]
-
-          })
-        }
-        className="w-full text-stone-500 text-sm cursor-pointer"
-      >
-
-        Cancel
-
-      </button>
-
-    </form>
-
-    {/* {bookingSuccess && (
-
-      <div className="mt-5 bg-green-50 border border-green-200 rounded-2xl p-5 space-y-4">
-
-        <h3 className="text-2xl font-bold text-green-700">
-
-          Booking Confirmed 🎉
-
-        </h3>
-
-        <p className="text-stone-700">
-
-          PNR:
-          {' '}
-          <span className="font-bold text-orange-600">
-
-            {bookingSuccess.pnr}
-
-          </span>
+          Address - Ward No.13,
+          Ring Road No.02,
+          Gurusagar Nagar,
+          Raipur-492001,
+          Chhattisgarh
 
         </p>
 
-        <div className="flex gap-3 flex-wrap">
-
-          <button
-
-            onClick={() =>
-
-              window.open(
-
-                `${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
-
-              )
-
-            }
-
-            className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold cursor-pointer"
-
-          >
-
-            Download Ticket
-
-          </button>
-
-          <a
-
-            href={`https://wa.me/${bookingSuccess.mobileNumber}?text=${encodeURIComponent(
-
-              `🙏 Booking Confirmed
-
-PNR: ${bookingSuccess.pnr}
-
-Download Ticket:
-${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
-
-            )}`}
-
-            target="_blank"
-
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold"
-
-          >
-
-            WhatsApp Ticket
-
-          </a>
-
-        </div>
-
       </div>
 
-    )} */}
+      {/* HERO SECTION */}
 
-    {bookingSuccess && (
+      <section className="relative rounded-[2.5rem] overflow-hidden min-h-[85vh] flex items-center shadow-2xl">
 
-  <div className="mt-5 bg-green-50 border border-green-200 rounded-2xl p-6 space-y-5">
+        {/* BG IMAGE */}
 
-    <div>
+        <img
 
-      <h3 className="text-3xl font-bold text-green-700">
+          src={
+            heroSlides[currentImage]
+              .image
+          }
 
-        Booking Confirmed 🎉
+          alt="Shiv Temple"
 
-      </h3>
+          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
 
-      <p className="text-stone-700 mt-2">
+        />
 
-        Har Har Mahadev 🙏
-        Your slot has been booked successfully.
+        {/* OVERLAY */}
 
-      </p>
+        <div className="absolute inset-0 bg-black/60"></div>
 
-    </div>
+        {/* GLOW */}
 
-    <div className="bg-white rounded-xl p-4 border border-green-100">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500 opacity-20 blur-[120px] rounded-full"></div>
 
-      <p className="text-sm text-stone-500">
-        PNR Number
-      </p>
+        {/* CONTENT */}
 
-      <p className="text-2xl font-bold text-orange-600">
+        <div className="relative z-10 max-w-3xl px-8 md:px-16 py-20">
 
-        {bookingSuccess.pnr}
+          <div className="inline-block px-4 py-2 rounded-full bg-orange-500/20 border border-orange-400/30 text-orange-200 font-semibold text-sm mb-6 backdrop-blur-md">
 
-      </p>
+            🙏 Har Har Mahadev
 
-    </div>
+          </div>
 
-    <div className="flex gap-3 flex-wrap">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 tracking-tight">
 
-      <button
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-red-500">
 
-        onClick={() =>
+              {
+                heroSlides[currentImage]
+                  .title
+              }
 
-          window.open(
+            </span>
 
-            `${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
+          </h1>
 
-          )
+          <p className="text-xl md:text-2xl text-orange-100 font-semibold mb-6">
 
-        }
-
-        className="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold cursor-pointer"
-
-      >
-
-        Download Ticket
-
-      </button>
-
-      <a
-
-        href={`https://wa.me/?text=${encodeURIComponent(
-
-          `🙏 Booking Confirmed
-
-PNR: ${bookingSuccess.pnr}
-
-Download Ticket:
-${API_BASE_URL}/api/tickets/${bookingSuccess.pnr}`
-
-        )}`}
-
-        target="_blank"
-
-        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold"
-
-      >
-
-        WhatsApp Ticket
-
-      </a>
-
-    </div>
-
-  </div>
-
-)}
-
-  </>
-
-) : (
-
-  event.slotEnabled ? (
-
-    <button
-
-      onClick={() =>
-        setBookingForm({
-
-          mobileNumber: '',
-
-          eventId: event.id,
-
-          devotees: [
             {
-              name: '',
-              age: '',
-              gender: 'MALE'
+              heroSlides[currentImage]
+                .subtitle
             }
-          ]
 
-        })
-      }
+          </p>
 
-      className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white py-4 rounded-2xl font-bold transition-all hover:scale-[1.02] shadow-lg shadow-orange-600/20 cursor-pointer"
+          <p className="text-xl md:text-2xl text-stone-200 leading-relaxed mb-10">
 
-    >
+            Join the divine journey
+            of devotion, spirituality
+            and seva with Shiv Shakti
+            Seva Foundation.
 
-      Book Slot
+          </p>
 
-    </button>
+          <div className="flex flex-wrap gap-4">
 
-  ) : (
+            <Link
 
-    <button
+              to="/donate"
 
-      disabled
+              className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition-all hover:scale-105"
 
-      className="w-full bg-red-500 text-white py-4 rounded-xl font-bold opacity-80"
+            >
 
-    >
+              Donate Now
 
-      Slots Closed
+            </Link>
 
-    </button>
+            <button
 
-  )
+              onClick={() => {
 
-)}
-            </div>
-          ))}
+                document
+                  .getElementById(
+                    'events'
+                  )
+                  ?.scrollIntoView({
+
+                    behavior:
+                      'smooth'
+
+                  });
+
+              }}
+
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition"
+
+            >
+
+              Explore Events
+
+            </button>
+
+          </div>
+
         </div>
+
+        {/* SLIDER DOTS */}
+
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+
+          {heroSlides.map(
+            (_, index) => (
+
+              <button
+
+                key={index}
+
+                onClick={() =>
+                  setCurrentImage(
+                    index
+                  )
+                }
+
+                className={`w-3 h-3 rounded-full transition-all ${
+                  currentImage ===
+                  index
+
+                    ? 'bg-orange-400 w-8'
+
+                    : 'bg-white/50'
+                }`}
+
+              />
+
+            )
+          )}
+
+        </div>
+
       </section>
+
+      {/* TRUSTEE */}
+
+      <section className="py-12 bg-white rounded-[2.5rem] p-10 shadow-lg border border-stone-100 flex flex-col md:flex-row items-center gap-8">
+
+        <div className="w-48 h-48 rounded-full bg-stone-200 overflow-hidden shadow-inner border-4 border-orange-100">
+
+          <img
+
+            src="https://via.placeholder.com/200?text=Trustee+Photo"
+
+            alt="Trustee"
+
+            className="w-full h-full object-cover"
+
+          />
+
+        </div>
+
+        <div>
+
+          <h2 className="text-3xl font-extrabold text-stone-900 mb-2">
+
+            Shri Dummy Sharma
+
+          </h2>
+
+          <p className="text-orange-600 font-bold text-xl mb-4">
+
+            Founder & Chief Trustee
+
+          </p>
+
+          <p className="text-stone-600 text-lg mb-4">
+
+            Dedicated to the service
+            of Lord Shiva and humanity.
+
+          </p>
+
+          <div className="inline-flex items-center gap-2 bg-stone-100 px-4 py-2 rounded-lg font-semibold text-stone-800">
+
+            📞 +91 98765 43210
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* EVENTS */}
+
+      <section
+        id="events"
+        className="py-12"
+      >
+
+        <div className="text-center mb-12">
+
+          <h2 className="text-4xl font-extrabold text-stone-900 mb-4">
+
+            Upcoming Programs
+
+          </h2>
+
+          <p className="text-stone-500 text-lg">
+
+            Join Baba ka Darbar
+            and experience the
+            divine energy.
+
+          </p>
+
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {events.length === 0 ? (
+
+            <p className="text-center text-stone-500 col-span-3">
+
+              No upcoming events
+              scheduled yet.
+
+            </p>
+
+          ) : (
+
+            events.map(event => (
+
+              <div
+
+                key={event.id}
+
+                className="bg-white rounded-3xl p-8 shadow border border-stone-100 relative overflow-hidden"
+
+              >
+
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-400 to-red-500"></div>
+
+                {event.bannerImage && (
+
+                  <img
+
+                    src={event.bannerImage}
+
+                    alt={event.title}
+
+                    className="w-full h-56 object-cover rounded-2xl mb-6"
+
+                  />
+
+                )}
+
+                <h3 className="text-2xl font-bold text-stone-900 mb-3">
+
+                  {event.title}
+
+                </h3>
+
+                <p className="text-stone-600 mb-6 leading-7">
+
+                  {event.description}
+
+                </p>
+
+                <div className="flex justify-between items-center bg-stone-50 p-4 rounded-xl">
+
+                  <div>
+
+                    <p className="text-xs text-stone-500 uppercase font-bold mb-1">
+
+                      Date
+
+                    </p>
+
+                    <p className="font-semibold text-stone-900">
+
+                      {new Date(
+                        event.eventDate
+                      ).toLocaleDateString()}
+
+                    </p>
+
+                  </div>
+
+                  <div className="text-right">
+
+                    <p className="text-xs text-stone-500 uppercase font-bold mb-1">
+
+                      Location
+
+                    </p>
+
+                    <p className="font-semibold text-stone-900">
+
+                      {event.location}
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))
+
+          )}
+
+        </div>
+
+      </section>
+
     </div>
+
   );
+
 };
 
 export default Home;

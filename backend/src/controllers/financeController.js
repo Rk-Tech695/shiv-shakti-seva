@@ -8,6 +8,12 @@ export const getFinanceSummary =
       const donations =
         await prisma.donation.findMany({
 
+          where: {
+
+      status: 'SUCCESS'
+
+    },
+
           include: {
 
             user: true

@@ -9,26 +9,28 @@ export const createEvent = async (req, res) => {
       description,
       eventDate,
       location,
-      totalSlots
+      bannerImage
     } = req.body;
 
-    const event = await prisma.event.create({
+    const event =
+      await prisma.event.create({
 
-      data: {
+        data: {
 
-        title,
+          title,
 
-        description,
+          description,
 
-        eventDate: new Date(eventDate),
+          eventDate:
+            new Date(eventDate),
 
-        location,
+          location,
 
-        totalSlots: parseInt(totalSlots)
+          bannerImage
 
-      }
+        }
 
-    });
+      });
 
     res.json({
 
@@ -58,29 +60,16 @@ export const getEvents = async (req, res) => {
 
   try {
 
-    const events = await prisma.event.findMany({
+    const events =
+      await prisma.event.findMany({
 
-      include: {
+        orderBy: {
 
-        bookingGroups: {
-
-          include: {
-
-            devotees: true
-
-          }
+          createdAt: 'desc'
 
         }
 
-      },
-
-      orderBy: {
-
-        createdAt: 'desc'
-
-      }
-
-    });
+      });
 
     res.json(events);
 
