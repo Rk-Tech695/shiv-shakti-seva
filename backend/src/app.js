@@ -13,6 +13,7 @@ import userRoutes from './routes/userRoutes.js';
 import bookingGroupRoutes from './routes/bookingGroupRoutes.js';
 import ticketRoutes from './routes/ticketRoutes.js';
 import receiptRoutes from './routes/receiptRoutes.js';
+import bhavanRoutes from './routes/bhavanRoutes.js';
 import './cron/birthdayCron.js';
 
 const app = express();
@@ -48,6 +49,8 @@ app.use('/api/booking-groups', bookingGroupRoutes);
 app.use('/api/tickets', ticketRoutes);
 
 app.use('/api/receipts',receiptRoutes);
+
+app.use('/api/bhavan',bhavanRoutes);
 
 app.use('/api/users', userRoutes);
 

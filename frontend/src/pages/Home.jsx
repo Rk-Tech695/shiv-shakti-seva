@@ -842,6 +842,180 @@ const Home = () => {
   const [currentImage, setCurrentImage] =
     useState(0);
 
+  const [bhavanSettings,setBhavanSettings] = useState(null);  
+  
+  const [bhavanForm, setBhavanForm] =
+  useState({
+
+    groupName: '',
+
+    mobileNumber: '',
+
+    totalPersons: '',
+
+    totalMales: '',
+
+    totalFemales: '',
+
+    jalDate: '',
+
+    arrivalDate: '',
+
+    departureDate: '',
+
+    note: '',
+
+    devotees: [
+
+      {
+
+        name: '',
+
+        gender: 'Male',
+
+        age: '',
+
+        dob: '',
+
+        mobile: ''
+
+      }
+
+    ]
+
+  });  
+
+  const addDevotee = () => {
+
+  setBhavanForm({
+
+    ...bhavanForm,
+
+    devotees: [
+
+      ...bhavanForm.devotees,
+
+      {
+
+        name: '',
+
+        gender: 'Male',
+
+        age: '',
+
+        dob: '',
+
+        mobile: ''
+
+      }
+
+    ]
+
+  });
+
+};
+
+
+const handleDevoteeChange = (
+  index,
+  field,
+  value
+) => {
+
+  setBhavanForm(prev => {
+
+    const updated =
+      [...prev.devotees];
+
+    updated[index] = {
+
+      ...updated[index],
+
+      [field]: value
+
+    };
+
+    return {
+
+      ...prev,
+
+      devotees: updated
+
+    };
+
+  });
+
+};
+
+const handleBhavanBooking =
+  async e => {
+
+    e.preventDefault();
+
+    try {
+
+      await axios.post(
+
+        `${API_BASE_URL}/api/bhavan/booking`,
+
+        bhavanForm
+
+      );
+
+      alert(
+        'Booking Request Submitted'
+      );
+
+      setBhavanForm({
+
+        groupName: '',
+
+        mobileNumber: '',
+
+        totalPersons: '',
+
+        totalMales: '',
+
+        totalFemales: '',
+
+        jalDate: '',
+
+        arrivalDate: '',
+
+        departureDate: '',
+
+        note: '',
+
+        devotees: [
+
+          {
+
+            name: '',
+
+            gender: 'Male',
+
+            age: '',
+
+            dob: '',
+
+            mobile: ''
+
+          }
+
+        ]
+
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert('Booking Failed');
+
+    }
+
+  };
+
   const heroSlides = [
 
     {
@@ -950,9 +1124,34 @@ const Home = () => {
 
     };
 
+    const fetchBhavanSettings =
+  async () => {
+
+    try {
+
+      const res =
+        await axios.get(
+
+          `${API_BASE_URL}/api/bhavan/settings`
+
+        );
+
+      setBhavanSettings(
+        res.data.setting
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   useEffect(() => {
 
     fetchEvents();
+    fetchBhavanSettings();
 
   }, []);
 
@@ -1182,6 +1381,558 @@ const Home = () => {
         </div>
 
       </section>
+
+      {/* Bhavan */}
+      <section className="bg-white rounded-[2.5rem] p-10 border border-stone-200 shadow-sm mb-16">
+
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+    {/* LEFT */}
+
+    <div>
+
+      <h2 className="text-5xl font-extrabold text-stone-900 leading-tight">
+
+        🛕 Kawar Yatri
+        Vishram Bhavan
+
+      </h2>
+
+      <p className="mt-6 text-stone-600 leading-8 text-lg">
+
+        Shiv Shakti Seva Foundation
+        is building a free Bhavan
+        facility for Kawar Yatris
+        travelling from
+        Sultanganj to Devghar.
+
+      </p>
+
+      <div className="mt-8 space-y-4">
+
+        <div className="flex items-center gap-3">
+
+          <div className="w-3 h-3 rounded-full bg-orange-500" />
+
+          <p className="text-stone-700 font-medium">
+
+            Free Stay Facility
+
+          </p>
+
+        </div>
+
+        <div className="flex items-center gap-3">
+
+          <div className="w-3 h-3 rounded-full bg-orange-500" />
+
+          <p className="text-stone-700 font-medium">
+
+            Hall & Room Facility
+
+          </p>
+
+        </div>
+
+        <div className="flex items-center gap-3">
+
+          <div className="w-3 h-3 rounded-full bg-orange-500" />
+
+          <p className="text-stone-700 font-medium">
+
+            Safe Drinking Water
+
+          </p>
+
+        </div>
+
+        <div className="flex items-center gap-3">
+
+          <div className="w-3 h-3 rounded-full bg-orange-500" />
+
+          <p className="text-stone-700 font-medium">
+
+            Seva For Mahadev Bhakts
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT */}
+
+    <div className="bg-stone-50 rounded-3xl border border-stone-200 p-7">
+
+      <h3 className="text-3xl font-bold text-stone-900 mb-6">
+
+        Bhavan Booking
+
+      </h3>
+
+      {/* FORM YAHA AAYEGA */}
+
+     {bhavanSettings
+  ?.bhavanBookingEnabled ? (
+
+  <form
+    onSubmit={handleBhavanBooking}
+    className="space-y-4"
+  >
+
+    <input
+    type="text"
+    placeholder="Group / Family Name (Optional)"
+    className="w-full border border-stone-200 rounded-xl p-4"
+    value={bhavanForm.groupName}
+    onChange={e =>
+      setBhavanForm({
+        ...bhavanForm,
+        groupName: e.target.value
+      })
+    }
+  />
+
+  <input
+    type="text"
+    required
+    placeholder="Mobile Number"
+    className="w-full border border-stone-200 rounded-xl p-4"
+    value={bhavanForm.mobileNumber}
+    onChange={e =>
+      setBhavanForm({
+        ...bhavanForm,
+        mobileNumber: e.target.value
+      })
+    }
+  />
+
+  <div className="grid grid-cols-3 gap-3">
+
+    <input
+      type="text"
+      inputMode="numeric"
+      required
+      placeholder="Persons"
+      className="border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.totalPersons}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          totalPersons: e.target.value
+        })
+      }
+    />
+
+    <input
+      type="text"
+      inputMode="numeric"
+      required
+      placeholder="Males"
+      className="border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.totalMales}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          totalMales: e.target.value
+        })
+      }
+    />
+
+    <input
+      type="text" 
+      inputMode="numeric"
+      required
+      placeholder="Females"
+      className="border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.totalFemales}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          totalFemales: e.target.value
+        })
+      }
+    />
+
+  </div>
+
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+  <div className="w-full">
+
+    <label className="block text-sm font-bold mb-2 text-stone-700">
+
+      Jal Uthane Ki Date
+
+    </label>
+
+    <input
+      type="date"
+      required
+      className="w-full border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.jalDate}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          jalDate: e.target.value
+        })
+      }
+    />
+
+  </div>
+
+  <div className="w-full">
+
+    <label className="block text-sm font-bold mb-2 text-stone-700">
+
+      Bhavan Arrival Date
+
+    </label>
+
+    <input
+      type="date"
+      required
+      className="w-full border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.arrivalDate}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          arrivalDate: e.target.value
+        })
+      }
+    />
+
+  </div>
+
+  <div className="w-full">
+
+    <label className="block text-sm font-bold mb-2 text-stone-700">
+
+      Bhavan Dep. Date
+
+    </label>
+
+    <input
+      type="date"
+      required
+      className="w-full border border-stone-200 rounded-xl p-4"
+      value={bhavanForm.departureDate}
+      onChange={e =>
+        setBhavanForm({
+          ...bhavanForm,
+          departureDate: e.target.value
+        })
+      }
+    />
+
+  </div>
+
+</div>
+  <div className="pt-4">
+
+  <div className="flex items-center justify-between mb-5">
+
+    <h4 className="text-2xl font-bold text-stone-900">
+
+      Yatri Details
+
+    </h4>
+
+    <button
+
+      type="button"
+
+      onClick={addDevotee}
+
+      className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl font-bold"
+
+    >
+
+      + Add Yatri
+
+    </button>
+
+  </div>
+
+  <div className="space-y-5">
+
+    {bhavanForm.devotees.map(
+
+      (devotee, index) => (
+
+        <div
+
+          key={index}
+
+          className="bg-white border border-stone-200 rounded-2xl p-5 space-y-4"
+
+        >
+
+          <div className="flex items-center justify-between">
+
+            <h5 className="font-bold text-lg text-stone-800">
+
+              Yatri #{index + 1}
+
+            </h5>
+
+            {bhavanForm.devotees.length > 1 && (
+
+              <button
+
+                type="button"
+
+                onClick={() => {
+
+                  const updated =
+                    [...bhavanForm.devotees];
+
+                  updated.splice(index, 1);
+
+                  setBhavanForm({
+
+                    ...bhavanForm,
+
+                    devotees: updated
+
+                  });
+
+                }}
+
+                className="text-red-500 font-bold"
+
+              >
+
+                Remove
+
+              </button>
+
+            )}
+
+          </div>
+
+          <input
+
+            type="text"
+
+            required
+
+            placeholder="Full Name"
+
+            className="w-full border border-stone-200 rounded-xl p-4"
+
+            value={devotee.name}
+
+            onChange={e =>
+
+              handleDevoteeChange(
+
+                index,
+
+                'name',
+
+                e.target.value
+
+              )
+
+            }
+
+          />
+
+          <div className="grid grid-cols-2 gap-4">
+
+            <select
+
+              className="border border-stone-200 rounded-xl p-4"
+
+              value={devotee.gender}
+
+              onChange={e =>
+
+                handleDevoteeChange(
+
+                  index,
+
+                  'gender',
+
+                  e.target.value
+
+                )
+
+              }
+
+            >
+
+              <option value="Male">
+
+                Male
+
+              </option>
+
+              <option value="Female">
+
+                Female
+
+              </option>
+
+            </select>
+
+            <input
+
+              type="text"
+              inputMode="numeric"
+              required
+
+              placeholder="Age"
+
+              className="border border-stone-200 rounded-xl p-4"
+
+              value={devotee.age}
+
+              onChange={e =>
+
+                handleDevoteeChange(
+
+                  index,
+
+                  'age',
+
+                  e.target.value
+
+                )
+
+              }
+
+            />
+
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+
+            <input
+
+              type="date"
+
+              className="border border-stone-200 rounded-xl p-4"
+
+              value={devotee.dob}
+
+              onChange={e =>
+
+                handleDevoteeChange(
+
+                  index,
+
+                  'dob',
+
+                  e.target.value
+
+                )
+
+              }
+
+            />
+
+            <input
+
+              type="text"
+
+              placeholder="Mobile Number"
+
+              className="border border-stone-200 rounded-xl p-4"
+
+              value={devotee.mobile}
+
+              onChange={e =>
+
+                handleDevoteeChange(
+
+                  index,
+
+                  'mobile',
+
+                  e.target.value
+
+                )
+
+              }
+
+            />
+
+          </div>
+
+        </div>
+
+      )
+
+    )}
+
+  </div>
+
+</div>
+
+  <textarea
+    placeholder="Additional Note"
+    className="w-full border border-stone-200 rounded-xl p-4"
+    rows="4"
+    value={bhavanForm.note}
+    onChange={e =>
+      setBhavanForm({
+        ...bhavanForm,
+        note: e.target.value
+      })
+    }
+  />
+
+  <button
+    type="submit"
+    className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-4 rounded-2xl font-bold"
+  >
+
+    Submit Booking Request
+
+  </button>
+
+</form>
+
+) : (
+
+  <div className="bg-red-50 border border-red-200 rounded-3xl p-8">
+
+    <h3 className="text-2xl font-bold text-red-700">
+
+      Booking Temporarily Closed
+
+    </h3>
+
+    <p className="mt-4 text-red-600 leading-7">
+
+      {
+
+        bhavanSettings
+          ?.bhavanBookingMessage
+
+      }
+
+    </p>
+
+  </div>
+
+)}
+
+  
+
+</div>
+
+</div>
+
+</section>
+
+
+
+   
 
       {/* EVENTS */}
 

@@ -13,7 +13,9 @@ const AdminTabs = ({
 
     'EVENTS',
 
-    'BOOKINGS'
+    'BOOKINGS',
+
+    'BHAVAN'
 
   ];
 

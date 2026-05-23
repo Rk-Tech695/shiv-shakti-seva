@@ -638,8 +638,8 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import API_BASE_URL
-  from '../config/config';
+import API_BASE_URL from '../config/config';
+
 
 
 import {
@@ -670,6 +670,16 @@ import BookingsTab from '../components/BookingsTabs';
 
 import ApprovalTab from '../components/ApprovalTab';
 
+import BhavanTab from '../components/BhavanTab';
+
+import {
+
+  fetchBhavanBookings,
+
+  fetchBhavanRooms
+
+} from '../services/adminService';
+
 
 const AdminDashboard = () => {
 
@@ -694,12 +704,26 @@ const AdminDashboard = () => {
 
     });
 
+  const [bhavanBookings,
+  setBhavanBookings] =
+  useState([]);
+
+  const [bhavanRooms,
+    setBhavanRooms] =
+    useState([]);  
+
   // =========================
   // TABS
   // =========================
 
   const [activeTab, setActiveTab] =
-    useState('DANDATA');
+  useState(
+
+    localStorage.getItem(
+      'adminActiveTab'
+    ) || 'DANDATA'
+
+  );
 
   // =========================
   // DATA STATES
@@ -809,6 +833,20 @@ const AdminDashboard = () => {
     const data =
       await fetchDashboardData();
 
+      const bhavanBookingsData =
+        await fetchBhavanBookings();
+
+      const bhavanRoomsData =
+        await fetchBhavanRooms();
+
+      setBhavanBookings(
+        bhavanBookingsData
+      );
+
+      setBhavanRooms(
+        bhavanRoomsData
+      );
+
     const pendingRes =
   await axios.get(
 
@@ -870,6 +908,17 @@ setPendingDonations(
   // =========================
   // INITIAL LOAD
   // =========================
+const handleTabChange =
+  tab => {
+
+    setActiveTab(tab);
+
+    localStorage.setItem(
+      'adminActiveTab',
+      tab
+    );
+
+  };
 
   useEffect(() => {
 
@@ -1157,7 +1206,7 @@ const handleCashDonation =
 
         activeTab={activeTab}
 
-        setActiveTab={setActiveTab}
+        setActiveTab={handleTabChange}
 
       />
 
@@ -1231,6 +1280,20 @@ const handleCashDonation =
           />
 
         )}
+
+        {/* BHAVAN */}
+
+{activeTab === 'BHAVAN' && (
+
+  <BhavanTab
+
+    bookings={bhavanBookings}
+
+    rooms={bhavanRooms}
+
+  />
+
+)}
 
         {/* BOOKINGS */}
 

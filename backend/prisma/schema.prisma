@@ -130,38 +130,108 @@ model Trustee {
   createdAt   DateTime @default(now())
 }
 
+model BhavanRoom {
+
+  id          Int      @id @default(autoincrement())
+
+  name        String
+
+  type        String
+
+  totalBeds   Int
+
+  occupiedBeds Int     @default(0)
+
+  isHall      Boolean  @default(false)
+
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+
+  bookings    BhavanBooking[]
+
+}
+
 model BhavanBooking {
+
+  id               Int      @id @default(autoincrement())
+
+  groupName        String
+
+  mobileNumber     String
+
+  totalPersons     Int
+
+  totalMales       Int
+
+  totalFemales     Int
+
+  jalDate          DateTime
+
+  arrivalDate      DateTime
+
+  departureDate    DateTime
+
+  note             String?
+
+  status           BhavanStatus @default(PENDING)
+
+  assignedRoomId   Int?
+
+  assignedRoom     BhavanRoom? @relation(fields: [assignedRoomId], references: [id])
+
+  createdAt        DateTime @default(now())
+
+  assignedAt       DateTime?
+
+  checkoutAt       DateTime?
+
+  devotees         BhavanDevotee[]
+
+}
+
+model BhavanDevotee {
 
   id             Int      @id @default(autoincrement())
 
   name           String
 
-  mobile         String
+  gender         String
 
-  totalPersons   Int
+  age            Int
 
-  arrivalDate    DateTime
+  dob            DateTime?
 
-  departureDate  DateTime
+  mobile         String?
 
-  stayType       String
+  bookingId      Int
 
-  note           String?
+  booking        BhavanBooking @relation(fields: [bookingId], references: [id])
 
-  assignedRoom   String?
+}
 
-  status         String   @default("PENDING")
+enum BhavanStatus {
 
-  createdAt      DateTime @default(now())
+  PENDING
+
+  APPROVED
+
+  REJECTED
+
+  COMPLETED
 
 }
 
 
 model AppSetting {
 
-  id                     Int    @id @default(1)
+  id                     Int     @id @default(1)
 
-  maxDevoteesPerBooking  Int    @default(5)
+  maxDevoteesPerBooking  Int     @default(5)
+
+  bhavanBookingEnabled   Boolean @default(true)
+
+  bhavanBookingMessage   String?
 
 }
 
