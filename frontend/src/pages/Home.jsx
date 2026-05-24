@@ -1335,7 +1335,7 @@ const handleBhavanBooking =
 
       {/* TRUSTEE */}
 
-      <section className="py-12 bg-white rounded-[2.5rem] p-10 shadow-lg border border-stone-100 flex flex-col md:flex-row items-center gap-8">
+      {/* <section className="py-12 bg-white rounded-[2.5rem] p-10 shadow-lg border border-stone-100 flex flex-col md:flex-row items-center gap-8">
 
         <div className="w-48 h-48 rounded-full bg-stone-200 overflow-hidden shadow-inner border-4 border-orange-100">
 
@@ -1380,7 +1380,7 @@ const handleBhavanBooking =
 
         </div>
 
-      </section>
+      </section> */}
 
       {/* Bhavan */}
       <section className="bg-white rounded-[2.5rem] p-10 border border-stone-200 shadow-sm mb-16">
