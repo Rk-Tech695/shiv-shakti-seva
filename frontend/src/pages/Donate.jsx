@@ -283,7 +283,7 @@ const Donate = () => {
               {' '}
               <span className="font-bold text-orange-600">
 
-                shivshakti@upi
+               -
 
               </span>
 
@@ -300,14 +300,36 @@ const Donate = () => {
               </span>
 
             </p>
+            <p>
 
+              Branch:
+              {' '}
+              <span className="font-bold">
+
+                New Rajendra Nagar
+
+              </span>
+
+            </p>
+
+            <p>
+
+              Bank Name:
+              {' '}
+              <span className="font-bold">
+
+                Kotak Mahindra Bank
+
+              </span>
+
+            </p>
             <p>
 
               IFSC:
               {' '}
               <span className="font-bold">
 
-                SBIN0001234
+                KKBK0006460
 
               </span>
 
@@ -319,7 +341,7 @@ const Donate = () => {
               {' '}
               <span className="font-bold">
 
-                12345678901
+                0054903647
 
               </span>
 
