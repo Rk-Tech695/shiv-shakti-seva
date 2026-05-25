@@ -61,6 +61,15 @@ const Navbar = () => {
             </Link>
 
             <Link
+                to="/about"
+                className="text-white hover:text-yellow-200 text-lg font-semibold transition"
+              >
+
+                About Us
+
+              </Link>
+
+            <Link
               to="/admin"
               className="text-white hover:text-yellow-200 text-lg font-semibold transition"
             >
@@ -117,6 +126,18 @@ const Navbar = () => {
           >
 
             Donate
+
+          </Link>
+
+          <Link
+            to="/about"
+            onClick={() =>
+              setOpen(false)
+            }
+            className="block text-white text-lg font-semibold"
+          >
+
+            About Us
 
           </Link>
 

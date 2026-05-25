@@ -77,6 +77,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Donate from './pages/Donate';
 import AdminDashboard from './pages/AdminDashboard';
+import About from './pages/About';
 
 function App() {
 
@@ -136,6 +137,10 @@ function App() {
               path="/"
               element={<Home />}
             />
+            <Route
+  path="/about"
+  element={<About />}
+/>
 
             <Route
               path="/donate"
