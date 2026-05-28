@@ -436,3 +436,90 @@ export const approveDonation =
     }
 
   };
+
+  export const getLiveDonations =
+  async (req, res) => {
+
+    try {
+
+      // TOTAL RAISED
+
+      const totalRaised =
+        await prisma.donation.aggregate({
+
+          _sum: {
+
+            amount: true
+
+          },
+
+          where: {
+
+            status: 'SUCCESS'
+
+          }
+
+        });
+
+      // TOTAL DONORS
+
+      const totalDonors =
+        await prisma.user.count();
+
+      // LATEST DONATIONS
+
+      const latestDonations =
+        await prisma.donation.findMany({
+
+          where: {
+
+            status: 'SUCCESS'
+
+          },
+
+          orderBy: {
+
+            createdAt: 'desc'
+
+          },
+
+          take: 10,
+
+          include: {
+
+            user: true
+
+          }
+
+        });
+
+      res.json({
+
+        success: true,
+
+        totalRaised:
+          totalRaised._sum.amount || 0,
+
+        totalDonors,
+
+        goal: 73000000,
+
+        latestDonations
+
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+
+        success: false,
+
+        message: error.message
+
+      });
+
+    }
+
+  };

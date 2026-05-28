@@ -15,21 +15,21 @@ const Navbar = () => {
 
   return (
 
-    <nav className="bg-gradient-to-r from-orange-600 to-red-600 shadow-lg sticky top-0 z-50">
+    <nav className="fixed top-0 left-0 w-full z-[999] backdrop-blur-xl bg-gradient-to-r from-orange-600 via-orange-500 to-red-600 shadow-2xl border-b border-white/10">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 lg:h-[72px]">
 
           {/* LOGO */}
 
           <div className="flex items-center gap-3">
 
-            <Flame className="h-9 w-9 text-yellow-300" />
+            <Flame className="h-7 w-7 lg:h-8 lg:w-8 text-yellow-300 drop-shadow-lg" />
 
             <Link
               to="/"
-              className="text-xl md:text-3xl font-extrabold text-white tracking-wide"
+              className="text-lg md:text-2xl font-extrabold text-white tracking-wide whitespace-nowrap"
             >
 
               SHIV SHAKTI SEVA
@@ -40,11 +40,11 @@ const Navbar = () => {
 
           {/* DESKTOP MENU */}
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
 
             <Link
               to="/"
-              className="text-white hover:text-yellow-200 text-lg font-semibold transition"
+              className="text-white/90 hover:text-yellow-200 text-base font-semibold transition duration-300"
             >
 
               Home
@@ -53,7 +53,7 @@ const Navbar = () => {
 
             <Link
               to="/donate"
-              className="text-white hover:text-yellow-200 text-lg font-semibold transition"
+              className="text-white/90 hover:text-yellow-200 text-base font-semibold transition duration-300"
             >
 
               Donate
@@ -62,7 +62,7 @@ const Navbar = () => {
 
             <Link
                 to="/about"
-                className="text-white hover:text-yellow-200 text-lg font-semibold transition"
+                className="text-white/90 hover:text-yellow-200 text-base font-semibold transition duration-300"
               >
 
                 About Us
@@ -71,7 +71,7 @@ const Navbar = () => {
 
             <Link
               to="/admin"
-              className="text-white hover:text-yellow-200 text-lg font-semibold transition"
+              className="text-white/90 hover:text-yellow-200 text-base font-semibold transition duration-300"
             >
 
               Admin Portal
@@ -86,7 +86,7 @@ const Navbar = () => {
             onClick={() =>
               setOpen(!open)
             }
-            className="md:hidden text-white"
+            className="md:hidden text-white p-1"
           >
 
             {open
@@ -103,7 +103,7 @@ const Navbar = () => {
 
       {open && (
 
-        <div className="md:hidden bg-red-600 border-t border-red-400 px-6 py-5 space-y-4">
+        <div className="md:hidden bg-gradient-to-b from-red-600 to-orange-600 border-t border-white/10 px-6 py-5 space-y-5 shadow-2xl">
 
           <Link
             to="/"

@@ -61,7 +61,17 @@ model Donation {
 
   invoiceUrl     String?
 
+  isPublic       Boolean           @default(true)
+
   createdAt      DateTime          @default(now())
+
+}
+
+model DonationSetting {
+
+  id          Int    @id @default(1)
+
+  goalAmount  Float  @default(73000000)
 
 }
 

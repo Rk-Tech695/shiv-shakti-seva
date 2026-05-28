@@ -8,16 +8,15 @@ import axios from 'axios';
 
 const Home = () => {
 
-  const [events, setEvents] =
-    useState([]);
+  const [events, setEvents] =useState([]);
 
-  const [currentImage, setCurrentImage] =
-    useState(0);
+  const [donationData, setDonationData] = useState(null);
+
+  const [currentImage, setCurrentImage] = useState(0);
 
   const [bhavanSettings,setBhavanSettings] = useState(null);  
   
-  const [bhavanForm, setBhavanForm] =
-  useState({
+  const [bhavanForm, setBhavanForm] = useState({
 
     groupName: '',
 
@@ -294,7 +293,29 @@ const handleBhavanBooking =
 
       }
 
-    };
+  };
+
+  const fetchDonationData =
+  async () => {
+
+    try {
+
+      const res =
+        await axios.get(
+
+          `${API_BASE_URL}/api/donations/live`
+
+        );
+
+      setDonationData(res.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
 
     const fetchBhavanSettings =
   async () => {
@@ -322,6 +343,22 @@ const handleBhavanBooking =
 
   useEffect(() => {
 
+  fetchDonationData();
+
+  const interval =
+    setInterval(() => {
+
+      fetchDonationData();
+
+    }, 5000);
+
+  return () =>
+    clearInterval(interval);
+
+}, []);
+
+  useEffect(() => {
+
     fetchEvents();
     fetchBhavanSettings();
 
@@ -329,11 +366,11 @@ const handleBhavanBooking =
 
   return (
 
-    <div className="space-y-16">
+    <div className="space-y-16 pt-24">
 
       {/* FOUNDATION BANNER */}
 
-      <div className="bg-white border-2 border-orange-600 rounded-xl p-4 text-center shadow-lg">
+      <div className="mx-6 mt-6 bg-white border-2 border-orange-600 rounded-[2rem] p-6 text-center shadow-xl">
 
         <h2 className="text-3xl font-extrabold text-blue-900 uppercase tracking-wide">
 
@@ -361,87 +398,94 @@ const handleBhavanBooking =
 
       {/* HERO SECTION */}
 
-      <section className="relative rounded-[2.5rem] overflow-hidden min-h-[85vh] flex items-center shadow-2xl">
+      <section className="relative w-screen min-h-[78vh] overflow-hidden">
 
-        {/* BG IMAGE */}
+  {/* BACKGROUND IMAGE */}
 
-        <img
+  <img
+    src="/kashi.jpg"
+    alt="Hero"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
 
-          src={
-            heroSlides[currentImage]
-              .image
-          }
+  {/* OVERLAY */}
 
-          alt="Shiv Temple"
+  <div className="absolute inset-0 bg-gradient-to-r from-[#4a1204]/95 via-[#6b1806]/70 to-[#3b0d02]/40"></div>
 
-          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-1000"
+  {/* CONTENT */}
 
-        />
+  <div className="relative z-10 w-full min-h-[78vh] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 px-8 lg:px-24 py-6">
 
-        {/* OVERLAY */}
+    {/* LEFT SIDE */}
 
-        <div className="absolute inset-0 bg-black/60"></div>
+    <div className="flex flex-col justify-center">
 
-        {/* GLOW */}
+      {/* LIVE BADGE */}
 
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500 opacity-20 blur-[120px] rounded-full"></div>
+      <div className="flex items-center gap-4 mb-6">
 
-        {/* CONTENT */}
+        {/* <div className="bg-red-500 text-white px-5 py-2 rounded-full flex items-center gap-2 font-bold shadow-lg">
 
-        <div className="relative z-10 max-w-3xl px-8 md:px-16 py-20">
+          <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
 
-          <div className="inline-block px-4 py-2 rounded-full bg-orange-500/20 border border-orange-400/30 text-orange-200 font-semibold text-sm mb-6 backdrop-blur-md">
+          LIVE
 
-            🙏 Har Har Mahadev
+        </div> */}
 
-          </div>
+        <p className="text-orange-100 text-lg font-medium">
 
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 tracking-tight">
+          Har Har Mahadev 
 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-red-500">
+        </p>
 
-              {
-                heroSlides[currentImage]
-                  .title
-              }
+      </div>
 
-            </span>
+      {/* MAIN TITLE */}
 
-          </h1>
+      <h1 className="text-5xl sm:text-6xl lg:text-[4.5rem] font-extrabold text-white leading-[0.9]">
 
-          <p className="text-xl md:text-2xl text-orange-100 font-semibold mb-6">
+        SHIV SHAKTI
+        <br />
+        SEVA FOUNDATION
 
-            {
-              heroSlides[currentImage]
-                .subtitle
-            }
+      </h1>
 
-          </p>
+      {/* SUBTITLE */}
 
-          <p className="text-xl md:text-2xl text-stone-200 leading-relaxed mb-10">
+      <p className="mt-4 text-2xl lg:text-3xl text-orange-300 font-bold">
 
-            Join the divine journey
-            of devotion, spirituality
-            and seva with Shiv Shakti
-            Seva Foundation.
+        Nishulk Kanwar
+        Yatri Seva Kendra
 
-          </p>
+      </p>
 
-          <div className="flex flex-wrap gap-4">
+      {/* DESCRIPTION */}
 
-            <Link
+      <p className="mt-4 text-base lg:text-lg leading-7 text-orange-50 max-w-xl">
 
-              to="/donate"
+        Serving thousands of
+        Kanwar Yatris on
+        Devghar Kanwar Marg
+        with free stay, food,
+        medical seva and
+        drinking water facilities.
 
-              className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-lg transition-all hover:scale-105"
+      </p>
 
-            >
+      {/* BUTTONS */}
 
-              Donate Now
+      <div className="mt-5 flex flex-wrap gap-3">
 
-            </Link>
+        <Link
+          to="/donate"
+          className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500 text-white px-8 py-4 rounded-2xl font-bold shadow-2xl transition-all hover:scale-105"
+        >
 
-            <button
+          Donate Now
+
+        </Link>
+
+        <button
 
               onClick={() => {
 
@@ -466,44 +510,194 @@ const handleBhavanBooking =
 
             </button>
 
+      </div>
+
+      {/* LIVE DONATION POPUP */}
+
+      <div className="mt-6 bg-white/10 backdrop-blur-md border border-white/10 rounded-3xl p-5 max-w-md">
+
+        <div className="flex items-center gap-4">
+
+          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 to-red-600 flex items-center justify-center text-2xl shadow-lg">
+
+            🙏
+
+          </div>
+
+          <div>
+
+            <p className="text-xl font-bold text-white">
+
+              {
+                donationData
+                  ?.latestDonations?.[0]
+                  ?.user?.name || 'Devotee'
+              }
+
+            </p>
+
+            <p className="text-orange-100">
+
+              just donated
+
+              <span className="font-bold text-yellow-300 ml-2">
+
+                ₹{
+                  donationData
+                    ?.latestDonations?.[0]
+                    ?.amount || 0
+                }
+
+              </span>
+
+            </p>
+
           </div>
 
         </div>
 
-        {/* SLIDER DOTS */}
+      </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+    </div>
 
-          {heroSlides.map(
-            (_, index) => (
+    {/* RIGHT SIDE */}
 
-              <button
+    <div className="flex items-center justify-center">
 
-                key={index}
+      <div className="bg-white rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-[420px] scale-[0.82] origin-center">
 
-                onClick={() =>
-                  setCurrentImage(
-                    index
-                  )
-                }
+        {/* HEADER */}
 
-                className={`w-3 h-3 rounded-full transition-all ${
-                  currentImage ===
-                  index
+        <div className="bg-[#f8f4ee] px-6 py-4 border-b">
 
-                    ? 'bg-orange-400 w-8'
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-600 text-white px-5 py-2 rounded-full text-sm font-medium  mb-4 shadow">
 
-                    : 'bg-white/50'
-                }`}
+            ✅ Government Recognized • 80G & 12A Tax Free
 
-              />
+          </div>
 
-            )
-          )}
+          <h2 className="text-2xl font-extrabold text-stone-800 leading-tight">
+
+            Digital Donation Counter
+
+          </h2>
+
+          <p className="text-stone-500 mt-2">
+
+            Real-time donation tracker
+
+          </p>
 
         </div>
 
-      </section>
+        {/* BODY */}
+
+        <div className="p-4">
+
+          {/* AMOUNT */}
+
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-red-600 text-center">
+
+            ₹{
+              donationData?.totalRaised?.toLocaleString()
+            }
+
+          </h2>
+
+          <p className="text-center text-orange-500 text-2xl mt-4 font-semibold">
+
+            Raised So Far
+
+          </p>
+
+          {/* PROGRESS */}
+
+          <div className="mt-4 bg-[#fff5ee] rounded-2xl p-3">
+
+  <div className="flex justify-between items-center">
+
+    <div>
+
+      <p className="text-stone-500">
+
+        Total Donors
+
+      </p>
+
+      <h3 className="text-3xl font-extrabold text-red-600 mt-1">
+
+        {
+          donationData?.totalDonors || 0
+        }
+
+      </h3>
+
+    </div>
+
+    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-orange-500 to-red-600 flex items-center justify-center text-3xl text-white shadow-lg">
+
+      🤍
+
+    </div>
+
+  </div>
+
+</div>
+
+          {/* LIVE FEED */}
+
+          <div className="mt-6 bg-[#f8f4ee] rounded-2xl p-4">
+
+            <div className="flex items-center gap-3 mb-3">
+
+              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+
+              <p className="font-semibold text-stone-700">
+
+                Latest Donation
+
+              </p>
+
+            </div>
+
+            <p className="text-lg lg:text-xl text-stone-700 leading-8">
+
+              <span className="font-extrabold text-red-600">
+
+                ₹{
+                  donationData
+                    ?.latestDonations?.[0]
+                    ?.amount || 0
+                }
+
+              </span>
+              
+
+              donated by
+
+              <span className="font-bold ml-2">
+
+                {
+                  donationData
+                    ?.latestDonations?.[0]
+                    ?.user?.name || 'Devotee'
+                }
+
+              </span>
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 
       {/* TRUSTEE */}
 
@@ -556,7 +750,7 @@ const handleBhavanBooking =
 
       {/* ABOUT US */}
 
-<section className="bg-white rounded-[2.5rem] p-10 border border-stone-200 shadow-sm">
+<section className="bg-white rounded-[2.5rem] p-8 lg:p-14 border border-stone-200 shadow-xl mx-6 mt-20">
 
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -680,7 +874,7 @@ const handleBhavanBooking =
 </section>
 
       {/* Bhavan */}
-      <section className="bg-white rounded-[2.5rem] p-10 border border-stone-200 shadow-sm mb-16">
+      <section className="bg-white rounded-[2.5rem] p-8 lg:p-14 border border-stone-200 shadow-xl mx-6 mt-20 mb-20">
 
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
