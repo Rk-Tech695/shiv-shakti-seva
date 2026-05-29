@@ -18,6 +18,7 @@ model User {
   createdAt            DateTime   @default(now())
   updatedAt            DateTime   @updatedAt
   donations            Donation[]
+  @@map("user")
 }
 
 enum Role {
@@ -29,6 +30,7 @@ model Admin {
   id       Int    @id @default(autoincrement())
   username String @unique
   password String
+  @@map("admin")
 }
 
 model Donation {
@@ -65,15 +67,11 @@ model Donation {
 
   createdAt      DateTime          @default(now())
 
-}
-
-model DonationSetting {
-
-  id          Int    @id @default(1)
-
-  goalAmount  Float  @default(73000000)
+  @@map("donation")
 
 }
+
+
 
 enum PaymentMode {
   RAZORPAY
@@ -105,6 +103,8 @@ model Expense {
 
   createdAt    DateTime      @default(now())
 
+  @@map("expense")
+
 }
 
 enum ExpenseMode {
@@ -128,6 +128,8 @@ model Event {
 
   createdAt    DateTime  @default(now())
 
+  @@map("event")
+
 }
 
 
@@ -138,6 +140,8 @@ model Trustee {
   mobile      String
   designation String
   createdAt   DateTime @default(now())
+
+  @@map("trustee")
 }
 
 model BhavanRoom {
@@ -160,6 +164,7 @@ model BhavanRoom {
 
   bookings    BhavanBooking[]
 
+  @@map("bhavanroom")
 }
 
 model BhavanBooking {
@@ -198,6 +203,8 @@ model BhavanBooking {
 
   devotees         BhavanDevotee[]
 
+  @@map("bhavanbooking")
+
 }
 
 model BhavanDevotee {
@@ -217,6 +224,8 @@ model BhavanDevotee {
   bookingId      Int
 
   booking        BhavanBooking @relation(fields: [bookingId], references: [id])
+
+  @@map("bhavandevotee")
 
 }
 
@@ -242,6 +251,8 @@ model AppSetting {
   bhavanBookingEnabled   Boolean @default(true)
 
   bhavanBookingMessage   String?
+
+  @@map("appsetting")
 
 }
 
