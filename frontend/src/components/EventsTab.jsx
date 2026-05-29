@@ -153,26 +153,26 @@ const EventsTab = ({
 
       <div>
 
-        <h3 className="text-3xl font-extrabold mb-6 text-stone-900">
+  <h3 className="text-3xl font-extrabold mb-6 text-stone-900 text-center">
+    Upcoming Programs
+  </h3>
 
-          Upcoming Programs
+  <div className="grid grid-cols-1 gap-6 justify-items-center">
 
-        </h3>
+    {events.map(event => (
 
-        <div className="space-y-5">
-
-          {events.map(event => (
-
-            <EventCard
-              key={event.id}
-              event={event}
-            />
-
-          ))}
-
-        </div>
-
+      <div
+        key={event.id}
+        className="w-full max-w-xl"
+      >
+        <EventCard event={event} />
       </div>
+
+    ))}
+
+  </div>
+
+</div>
 
     </div>
 

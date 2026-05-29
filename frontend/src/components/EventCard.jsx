@@ -4,7 +4,7 @@ const EventCard = ({
 
   return (
 
-    <div className="bg-white border border-stone-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+    <div className="w-full bg-white border border-stone-200 p-6 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300">
 
       {/* EVENT IMAGE */}
 

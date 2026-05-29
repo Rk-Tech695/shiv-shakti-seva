@@ -2,11 +2,11 @@ const About = () => {
 
   return (
 
-    <div className="space-y-16">
+    <div className="space-y-16 max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-5">
 
       {/* HERO */}
 
-      <section className="relative rounded-[2.5rem] overflow-hidden min-h-[55vh] flex items-center">
+      <section className="relative rounded-[2.5rem] overflow-hidden min-h-[55vh] flex items-center w-full">
 
         <img
 

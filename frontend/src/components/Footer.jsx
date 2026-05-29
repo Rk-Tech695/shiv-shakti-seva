@@ -125,7 +125,6 @@
 // export default Footer;
 
 import {
-  Flame,
   Phone,
   MapPin,
   Mail
@@ -149,44 +148,45 @@ const Footer = () => {
 
           <div>
 
-            <div className="flex items-center gap-3 mb-5">
+  <Link
+    to="/"
+    className="flex items-center gap-4 mb-5"
+  >
+   <div className="bg-white rounded-full  shadow-lg">
+  <img
+    src="/Logo_No.png"
+    alt="Shiv Shakti Seva"
+    className="h-14 w-14 lg:h-16 lg:w-16 object-contain"
+  />
+</div>
 
-              <Flame className="text-orange-400 w-10 h-10" />
+    <div>
+      <h2 className="text-xl md:text-2xl font-extrabold text-white leading-tight">
+        SHIV SHAKTI SEVA
+      </h2>
 
-              <h2 className="text-2xl font-extrabold bg-gradient-to-r from-orange-300 to-yellow-200 bg-clip-text text-transparent">
+      <p className="text-orange-300 text-sm font-medium">
+        FOUNDATION
+      </p>
+    </div>
+  </Link>
 
-                Shiv Shakti
-                Seva Foundation
+  <p className="text-stone-300 leading-7 text-sm">
+    Dedicated to Kawar Yatri Seva,
+    Bhavan Nirman, Mahadev Bhakti,
+    Food Distribution and Spiritual Service.
+  </p>
 
-              </h2>
+  <div className="mt-6">
+    <Link
+      to="/about"
+      className="text-orange-400 font-bold hover:text-orange-300"
+    >
+      About Foundation →
+    </Link>
+  </div>
 
-            </div>
-
-            <p className="text-stone-300 leading-7 text-sm">
-
-              Dedicated to Kawar Yatri Seva,
-              Bhavan Nirman, Mahadev Bhakti,
-              Food Distribution and Spiritual Service.
-
-            </p>
-
-            <div className="mt-6">
-
-              <Link
-
-                to="/about"
-
-                className="text-orange-400 font-bold hover:text-orange-300"
-
-              >
-
-                About Foundation →
-
-              </Link>
-
-            </div>
-
-          </div>
+</div>
 
           {/* CENTER */}
 

@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import {
-  Flame,
-  Menu,
-  X
-} from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 import { useState } from 'react';
 
@@ -25,18 +21,30 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
 
-            <Flame className="h-7 w-7 lg:h-8 lg:w-8 text-yellow-300 drop-shadow-lg" />
+  <div className="bg-white rounded-full  shadow-lg">
+  <img
+    src="/Logo_No.png"
+    alt="Shiv Shakti Seva"
+    className="h-14 w-14 lg:h-16 lg:w-16 object-contain"
+  />
+</div>
 
-            <Link
-              to="/"
-              className="text-lg md:text-2xl font-extrabold text-white tracking-wide whitespace-nowrap"
-            >
+  <div className="flex flex-col">
+    
+    <Link
+      to="/"
+      className="text-lg md:text-2xl font-extrabold text-white tracking-wide leading-tight"
+    >
+      SHIV SHAKTI SEVA FOUNDATION
+    </Link>
 
-              SHIV SHAKTI SEVA
+    <span className="text-xs text-white mt-1">
+      CIN : U88900CT2026NPL020288
+    </span>
 
-            </Link>
+  </div>
 
-          </div>
+</div>
 
           {/* DESKTOP MENU */}
 

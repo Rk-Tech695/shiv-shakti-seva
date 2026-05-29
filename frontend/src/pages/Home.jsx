@@ -12,8 +12,6 @@ const Home = () => {
 
   const [donationData, setDonationData] = useState(null);
 
-  const [currentImage, setCurrentImage] = useState(0);
-
   const [bhavanSettings,setBhavanSettings] = useState(null);  
   
   const [bhavanForm, setBhavanForm] = useState({
@@ -187,91 +185,6 @@ const handleBhavanBooking =
 
   };
 
-  const heroSlides = [
-
-    {
-
-      image: '/kedarnath.png',
-
-      title: 'Kedarnath Dham',
-
-      subtitle:
-        'Land of Divine Himalayas'
-
-    },
-
-    {
-
-      image: '/baidyanath.png',
-
-      title:
-        'Baba Baidyanath Dham',
-
-      subtitle:
-        'Jyotirlinga of Devotion'
-
-    },
-
-    {
-
-      image: '/kashi.jpg',
-
-      title:
-        'Kashi Vishwanath',
-
-      subtitle:
-        'City of Mahadev'
-
-    },
-
-    {
-
-      image: '/mahakal.jpg',
-
-      title:
-        'Mahakaleshwar',
-
-      subtitle:
-        'Temple of Time & Power'
-
-    },
-
-    {
-
-      image: '/somnath.jpg',
-
-      title:
-        'Somnath Jyotirlinga',
-
-      subtitle:
-        'The Eternal Shrine'
-
-    }
-
-  ];
-
-  useEffect(() => {
-
-    const interval =
-      setInterval(() => {
-
-        setCurrentImage(prev =>
-
-          prev ===
-          heroSlides.length - 1
-
-            ? 0
-
-            : prev + 1
-
-        );
-
-      }, 4000);
-
-    return () =>
-      clearInterval(interval);
-
-  }, []);
 
   const fetchEvents =
     async () => {
@@ -366,35 +279,11 @@ const handleBhavanBooking =
 
   return (
 
-    <div className="space-y-16 pt-24">
+    <div className="space-y-16">
 
       {/* FOUNDATION BANNER */}
 
-      <div className="mx-6 mt-6 bg-white border-2 border-orange-600 rounded-[2rem] p-6 text-center shadow-xl">
-
-        <h2 className="text-3xl font-extrabold text-blue-900 uppercase tracking-wide">
-
-          Shiv Shakti Seva Foundation
-
-        </h2>
-
-        <h2 className="text-2xl font-bold text-red-600 mt-2">
-
-          CIN No - U88900CT2026NPL020288
-
-        </h2>
-
-        <p className="text-blue-800 font-bold text-lg mt-2">
-
-          Address - Ward No.13,
-          Ring Road No.02,
-          Gurusagar Nagar,
-          Raipur-492001,
-          Chhattisgarh
-
-        </p>
-
-      </div>
+      
 
       {/* HERO SECTION */}
 
@@ -403,7 +292,7 @@ const handleBhavanBooking =
   {/* BACKGROUND IMAGE */}
 
   <img
-    src="/kashi.jpg"
+    src="/baidyanath.png"
     alt="Hero"
     className="absolute inset-0 w-full h-full object-cover"
   />
