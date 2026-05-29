@@ -10,7 +10,7 @@ import expenseRoutes from './routes/expenseRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import trusteeRoutes from './routes/trusteeRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import bookingGroupRoutes from './routes/bookingGroupRoutes.js';
+// import bookingGroupRoutes from './routes/bookingGroupRoutes.js';
 import ticketRoutes from './routes/ticketRoutes.js';
 import receiptRoutes from './routes/receiptRoutes.js';
 import bhavanRoutes from './routes/bhavanRoutes.js';
@@ -44,7 +44,7 @@ app.use('/api/payments', paymentRoutes);
 
 app.use('/api/trustees', trusteeRoutes);
 
-app.use('/api/booking-groups', bookingGroupRoutes);
+// app.use('/api/booking-groups', bookingGroupRoutes);
 
 app.use('/api/tickets', ticketRoutes);
 
