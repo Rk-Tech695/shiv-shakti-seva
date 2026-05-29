@@ -91,25 +91,27 @@ export const fetchDashboardData =
           `${API_BASE_URL}/api/events`
         );
 
-      let bookings = [];
+      // let bookings = [];
 
-      try {
+      // try {
 
-        const bookingsRes =
-          await axios.get(
-            `${API_BASE_URL}/api/booking-groups`
-          );
+      //   const bookingsRes =
+      //     await axios.get(
+      //       `${API_BASE_URL}/api/booking-groups`
+      //     );
 
-        bookings =
-          bookingsRes.data.bookings || [];
+      //   bookings =
+      //     bookingsRes.data.bookings || [];
 
-      } catch (error) {
+      // } catch (error) {
 
-        console.log(
-          'Booking API Failed'
-        );
+      //   console.log(
+      //     'Booking API Failed'
+      //   );
 
-      }
+      // }
+
+      const bookings = [];
 
       return {
 
