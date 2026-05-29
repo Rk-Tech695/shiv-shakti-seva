@@ -71,15 +71,7 @@ model Donation {
 
 }
 
-model DonationSetting {
 
-  id          Int    @id @default(1)
-
-  goalAmount  Float  @default(73000000)
-
-  @@map("donationsetting")
-
-}
 
 enum PaymentMode {
   RAZORPAY
